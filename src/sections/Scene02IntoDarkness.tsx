@@ -2,6 +2,7 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import Image from "next/image";
 import { useRef } from "react";
 import { RevealText } from "@/components/RevealText";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -44,14 +45,16 @@ export function Scene02IntoDarkness() {
       aria-label="ورود به تاریکی"
       className="relative flex h-[130vh] w-full items-center justify-center overflow-hidden bg-void"
     >
-      <div
-        className="parallax-layer absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(140% 100% at 50% 110%, var(--color-stone-800) 0%, var(--color-void) 60%)",
-        }}
-        aria-hidden="true"
-      />
+      <div className="parallax-layer absolute inset-0 scale-110" aria-hidden="true">
+        <Image
+          src="/images/cave/darkness-threshold.webp"
+          alt="نمای عبور از میان صخره‌ها به سمت ردیفی از آکواریوم‌های نورانی در دوردست"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-void/60" />
+      </div>
       <div
         className="parallax-layer absolute inset-x-0 bottom-0 h-[55%]"
         style={{

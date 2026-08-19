@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { FishSVG } from "@/components/visuals/FishSVG";
+import { PhotoBackdrop } from "@/components/visuals/PhotoBackdrop";
 import { RevealText } from "@/components/RevealText";
 import { species } from "@/data/species";
 import { cn } from "@/lib/utils";
@@ -12,8 +14,15 @@ export function Scene06Species() {
   const [activeId, setActiveId] = useState<string | null>(null);
 
   return (
-    <section id="species" aria-label="گونه‌های آبزی" className="relative w-full bg-void py-28">
-      <div className="mx-auto max-w-6xl px-6">
+    <section id="species" aria-label="گونه‌های آبزی" className="relative w-full overflow-hidden bg-void py-28">
+      <PhotoBackdrop
+        src="/images/cave/aquarium-window-plants.webp"
+        alt="نمای نزدیک یک آکواریوم درون‌صخره‌ای با گیاهان آبزی و چند ماهی"
+        glow="none"
+        intensity="dim"
+        className="opacity-50"
+      />
+      <div className="relative mx-auto max-w-6xl px-6">
         <RevealText className="mb-16 text-center">
           <p className="font-display text-xs uppercase tracking-[0.4em] text-turquoise-soft">
             SPECIES
@@ -56,7 +65,19 @@ export function Scene06Species() {
                       active ? "translate-x-1 scale-110" : "scale-100",
                     )}
                   >
-                    <FishSVG color={s.color} accent={s.accent} className="w-full h-auto" />
+                    {s.photo ? (
+                      <div className="relative aspect-square w-full overflow-hidden rounded-xl">
+                        <Image
+                          src={s.photo}
+                          alt={`${s.name} در آکواریوم غار`}
+                          fill
+                          sizes="96px"
+                          className="object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <FishSVG color={s.color} accent={s.accent} className="w-full h-auto" />
+                    )}
                   </div>
 
                   <div className="min-w-0">

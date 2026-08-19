@@ -1,5 +1,5 @@
 import { RevealText } from "@/components/RevealText";
-import { RockBackdrop } from "@/components/visuals/RockBackdrop";
+import { PhotoBackdrop } from "@/components/visuals/PhotoBackdrop";
 import { ParticleField } from "@/components/visuals/ParticleField";
 
 /** SCENE 09 — VISIT THE CAVE: the exit — camera pulls back out of the
@@ -11,7 +11,12 @@ export function Scene09Visit() {
       aria-label="بازدید از غار"
       className="relative flex min-h-[90vh] w-full items-center justify-center overflow-hidden py-24"
     >
-      <RockBackdrop glow="top" intensity="bright" />
+      <PhotoBackdrop
+        src="/images/cave/corridor-warm-glow.webp"
+        alt="راهرو غار با ترکیبی از نور گرم و آبی، در انتهای مسیر بازدید"
+        glow="top"
+        intensity="bright"
+      />
       <ParticleField variant="dust" count={20} className="absolute inset-0" />
 
       <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-8 px-6 text-center">

@@ -29,11 +29,13 @@ export const metadata: Metadata = {
     siteName: "غار زنده",
     locale: "fa_IR",
     type: "website",
+    images: [{ url: "/images/cave/corridor-long-walk.webp", width: 2000, height: 1120 }],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
+    images: ["/images/cave/corridor-long-walk.webp"],
   },
   robots: { index: true, follow: true },
 };

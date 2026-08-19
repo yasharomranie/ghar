@@ -6,14 +6,13 @@ import { useRef, useState } from "react";
 import { AquariumWindow } from "@/components/visuals/AquariumWindow";
 import { CaveWindowClipDefs } from "@/components/visuals/CaveWindowClip";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { species } from "@/data/species";
 
 const phases = [
   { at: 0, label: "سنگ" },
-  { at: 0.22, label: "آب" },
+  { at: 0.25, label: "سایه" },
   { at: 0.45, label: "نور" },
-  { at: 0.62, label: "گیاهان" },
-  { at: 0.8, label: "ماهی‌ها" },
+  { at: 0.7, label: "رنگ" },
+  { at: 0.9, label: "زندگی" },
 ];
 
 function currentPhase(reveal: number) {
@@ -72,7 +71,9 @@ export function Scene04AquariumReveal() {
       <div className="sticky top-0 flex h-[100svh] w-full items-center justify-center overflow-hidden">
         <AquariumWindow
           reveal={effectiveReveal}
-          fish={species}
+          photoSrc="/images/cave/aquarium-window-clear.webp"
+          photoAlt="آکواریومی درون‌صخره‌ای با نور آبی، گیاهان آبزی و چند ماهی رنگارنگ"
+          priority
           className="aspect-[4/3] w-[min(88vw,720px)]"
         />
 

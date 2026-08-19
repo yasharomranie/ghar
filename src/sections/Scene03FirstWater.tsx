@@ -1,4 +1,4 @@
-import { RockBackdrop } from "@/components/visuals/RockBackdrop";
+import { PhotoBackdrop } from "@/components/visuals/PhotoBackdrop";
 import { ParticleField } from "@/components/visuals/ParticleField";
 import { RevealText } from "@/components/RevealText";
 
@@ -11,7 +11,12 @@ export function Scene03FirstWater() {
       aria-label="نخستین آب"
       className="relative flex h-[90vh] min-h-[520px] w-full items-center justify-center overflow-hidden"
     >
-      <RockBackdrop glow="right" intensity="normal" />
+      <PhotoBackdrop
+        src="/images/cave/water-corridor.webp"
+        alt="ردیفی از آکواریوم‌های نورانی در دل صخره، دیده‌شده از فاصله‌ای نزدیک‌تر"
+        glow="right"
+        intensity="normal"
+      />
       <div
         className="absolute inset-0"
         style={{

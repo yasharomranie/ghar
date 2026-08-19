@@ -1,32 +1,41 @@
-import { FishSchool } from "./FishSchool";
+import Image from "next/image";
 import { ParticleField } from "./ParticleField";
 import { cn } from "@/lib/utils";
-import type { Species } from "@/data/species";
 
 function mapRange(value: number, inMin: number, inMax: number) {
   return Math.max(0, Math.min(1, (value - inMin) / (inMax - inMin)));
 }
 
 /**
- * The "Image Completion" window (design brief §6): a single irregular
- * rock-cut opening that assembles itself in layers — stone → water → light
- * → plants → fish — driven by `reveal` (0 → 1, typically scroll progress).
+ * The "Image Completion" window (design brief §6): a real photograph of one
+ * of the rock-cut aquarium windows, clipped to the same irregular opening
+ * seen in the reference photos, and revealed — literally coming into focus
+ * out of the dark stone — strictly as a function of `reveal` (0 → 1,
+ * typically scroll progress), never on a timer.
  */
 export function AquariumWindow({
   reveal,
-  fish,
+  photoSrc,
+  photoAlt,
   clipId = "cave-window-a",
+  priority = false,
   className,
 }: {
   reveal: number;
-  fish: Species[];
+  photoSrc: string;
+  photoAlt: string;
   clipId?: "cave-window-a" | "cave-window-b";
+  priority?: boolean;
   className?: string;
 }) {
-  const water = mapRange(reveal, 0.0, 0.35);
-  const light = mapRange(reveal, 0.35, 0.6);
-  const plants = mapRange(reveal, 0.5, 0.75);
-  const fishReveal = mapRange(reveal, 0.7, 1.0);
+  // 0 -> a near-black, fully out-of-focus slab of stone
+  // 1 -> the photo, sharp, bright and true to color
+  const focus = mapRange(reveal, 0, 1);
+  const brightness = 0.1 + focus * 0.9;
+  const saturation = 0.15 + focus * 0.85;
+  const blurPx = (1 - focus) * 16;
+  const lightPulse = mapRange(reveal, 0.3, 0.65);
+  const bubbleReveal = mapRange(reveal, 0.55, 1);
 
   return (
     <div className={cn("relative", className)}>
@@ -41,66 +50,35 @@ export function AquariumWindow({
       />
 
       {/* window opening */}
-      <div className="absolute inset-[6%]" style={{ clipPath: `url(#${clipId})` }}>
-        {/* water body */}
+      <div className="absolute inset-[6%] overflow-hidden" style={{ clipPath: `url(#${clipId})` }}>
         <div
-          className="absolute inset-0 transition-opacity duration-700"
+          className="absolute inset-0 scale-110 transition-[filter] duration-150"
           style={{
-            opacity: Math.max(water, reveal > 0 ? 0.15 : 0),
-            background:
-              "linear-gradient(200deg, var(--color-ocean-700) 0%, var(--color-ocean-900) 65%, var(--color-void) 100%)",
+            filter: `brightness(${brightness}) saturate(${saturation}) blur(${blurPx}px)`,
           }}
-        />
+        >
+          <Image src={photoSrc} alt={photoAlt} fill priority={priority} sizes="90vw" className="object-cover" />
+        </div>
 
-        {/* volumetric light shaft + caustics */}
+        {/* a warm/cool light pulse as the scene "switches on" mid-reveal */}
         <div
-          className="absolute inset-0 transition-opacity duration-700"
+          className="absolute inset-0"
           style={{
-            opacity: light,
+            opacity: lightPulse * (1 - lightPulse) * 3.2,
             background:
-              "radial-gradient(38% 60% at 70% 0%, rgba(79,216,196,0.55), transparent 70%)",
+              "radial-gradient(45% 60% at 65% 10%, rgba(79,216,196,0.5), transparent 70%)",
             mixBlendMode: "screen",
           }}
         />
-        <div
-          className="absolute inset-0 transition-opacity duration-700"
-          style={{
-            opacity: light * 0.7,
-            backgroundImage:
-              "repeating-linear-gradient(115deg, rgba(143,233,219,0.12) 0px, rgba(143,233,219,0.12) 2px, transparent 2px, transparent 14px)",
-          }}
-        />
 
-        {/* plants */}
-        <svg
-          className="absolute bottom-0 inset-x-0 h-[45%] w-full transition-opacity duration-700"
-          style={{ opacity: plants }}
-          viewBox="0 0 200 100"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          {[18, 48, 82, 120, 156, 182].map((x, i) => (
-            <path
-              key={x}
-              d={`M${x},100 C ${x - 6},70 ${x + (i % 2 ? 10 : -10)},50 ${x},0`}
-              stroke="var(--color-moss-500)"
-              strokeWidth={3}
-              fill="none"
-              opacity={0.75}
-            />
-          ))}
-        </svg>
-
-        {/* fish */}
-        <FishSchool fish={fish} reveal={fishReveal} className="absolute inset-0" />
-
-        {/* bubbles */}
-        <ParticleField
-          variant="bubble"
-          count={10}
-          className="absolute inset-0"
-          key={`bubbles-${Math.round(fishReveal * 10)}`}
-        />
+        {bubbleReveal > 0 && (
+          <ParticleField
+            variant="bubble"
+            count={10}
+            className="absolute inset-0"
+            key={`bubbles-${Math.round(bubbleReveal * 10)}`}
+          />
+        )}
 
         {/* glass sheen */}
         <div

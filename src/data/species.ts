@@ -1,7 +1,9 @@
 // Species catalogue for Scene 06.
-// `asset` is the path the real photo/video should be placed at later
-// (see /assets/images/cave-aquarium) — until then, `color` / `accent`
-// drive the generative placeholder visual so the layout never breaks.
+// `photo`, when set, is a real public/ path and the card renders it instead
+// of the generative SVG fish. Species without a photo yet fall back to
+// `color` / `accent` driving the illustrated placeholder — swap in a real
+// portrait (see assets/images/cave-aquarium) and the card upgrades itself,
+// no layout changes needed.
 export interface Species {
   id: string;
   name: string;
@@ -11,7 +13,7 @@ export interface Species {
   description: string;
   color: string; // primary body tone for the placeholder SVG fish
   accent: string; // fin / stripe tone
-  asset: string; // future real asset path
+  photo?: string; // real portrait, when available
 }
 
 export const species: Species[] = [
@@ -25,7 +27,7 @@ export const species: Species[] = [
       "در تاریک‌روشنای غار، نوارهای آبی و طلایی‌اش تنها وقتی نور به آن می‌تابد آشکار می‌شوند.",
     color: "#2b6ea8",
     accent: "#e8b93f",
-    asset: "/assets/images/cave-aquarium/species/regal-angelfish.jpg",
+    photo: "/images/cave/species-regal-angelfish.webp",
   },
   {
     id: "powder-blue-tang",
@@ -37,7 +39,6 @@ export const species: Species[] = [
       "این‌ها معمولاً به‌صورت دسته‌جمعی شنا می‌کنند؛ حرکتشان مثل موجی آبی در دل تاریکی است.",
     color: "#3f8fd1",
     accent: "#101820",
-    asset: "/assets/images/cave-aquarium/species/powder-blue-tang.jpg",
   },
   {
     id: "cave-cichlid",
@@ -49,7 +50,6 @@ export const species: Species[] = [
       "نسل‌هایی از این گونه در همین محیط کم‌نور رشد کرده‌اند و کمتر از هر ماهی دیگری به نور نیاز دارند.",
     color: "#c97a4a",
     accent: "#5c3a21",
-    asset: "/assets/images/cave-aquarium/species/cave-cichlid.jpg",
   },
   {
     id: "lemon-goby",
@@ -61,6 +61,5 @@ export const species: Species[] = [
       "تنها لکه‌ی روشن این صحنه؛ انگار طبیعت خواسته یک نقطه‌ی امید در دل تاریکی بگذارد.",
     color: "#e8c93a",
     accent: "#8a6c14",
-    asset: "/assets/images/cave-aquarium/species/lemon-goby.jpg",
   },
 ];

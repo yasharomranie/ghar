@@ -1,19 +1,26 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /**
- * Generative rock-wall backdrop — deep stone gradients + a faint directional
- * light source, standing in for a real cave photograph/video plate.
- * Swap-ready: drop a real photo/video in the same absolutely-positioned
- * slot and this component becomes unnecessary (see brief §29).
+ * Real cave/aquarium photography as a scene backdrop, with the same
+ * legibility scrim + directional glow treatment RockBackdrop used for its
+ * generative gradients — so real photos slot into the existing scenes
+ * without changing how text sits on top of them.
  */
-export function RockBackdrop({
-  className,
+export function PhotoBackdrop({
+  src,
+  alt,
   glow = "top",
   intensity = "normal",
+  priority = false,
+  className,
 }: {
-  className?: string;
+  src: string;
+  alt: string;
   glow?: "top" | "left" | "right" | "center" | "none";
   intensity?: "normal" | "dim" | "bright";
+  priority?: boolean;
+  className?: string;
 }) {
   const glowPosition: Record<string, string> = {
     top: "50% -10%",
@@ -23,24 +30,26 @@ export function RockBackdrop({
     none: "50% 50%",
   };
 
-  const glowOpacity = intensity === "bright" ? 0.55 : intensity === "dim" ? 0.14 : 0.28;
+  const glowOpacity = intensity === "bright" ? 0.5 : intensity === "dim" ? 0.12 : 0.24;
 
   return (
     <div className={cn("absolute inset-0 overflow-hidden", className)} aria-hidden="true">
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(120% 90% at 20% 15%, var(--color-stone-700) 0%, var(--color-stone-900) 45%, var(--color-void) 100%)",
-        }}
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        priority={priority}
+        sizes="100vw"
+        className="object-cover"
       />
+      {/* darken + cool the photo slightly so foam-colored type stays legible */}
+      <div className="absolute inset-0 bg-void/55" />
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(80% 60% at 80% 85%, var(--color-moss-900) 0%, transparent 60%)",
-          mixBlendMode: "screen",
-          opacity: 0.5,
+            "radial-gradient(120% 90% at 20% 15%, transparent 0%, var(--color-void) 92%)",
+          opacity: 0.55,
         }}
       />
       {glow !== "none" && (
@@ -57,8 +66,7 @@ export function RockBackdrop({
       <div
         className="absolute inset-0"
         style={{
-          background:
-            "linear-gradient(180deg, rgba(5,7,8,0) 0%, rgba(5,7,8,0.65) 100%)",
+          background: "linear-gradient(180deg, rgba(5,7,8,0) 0%, rgba(5,7,8,0.75) 100%)",
         }}
       />
     </div>

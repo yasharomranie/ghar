@@ -17,7 +17,7 @@
 src/
   app/            layout, page, globals.css (توکن‌های طراحی)
   components/     Nav, ScrollProgress, CustomCursor, SmoothScrollProvider, RevealText
-  components/visuals/  بصری‌سازهای جایگزین (Rock, Water, Fish, Particles) — قابل تعویض با عکس/ویدیوی واقعی
+  components/visuals/  PhotoBackdrop (عکس واقعی + گرادیان خوانایی)، AquariumWindow، Particles، Fish icon
   sections/       هر «Scene» روایت، یک کامپوننت مستقل (۹ صحنه)
   data/           محتوای گونه‌ها، حقایق زمین‌شناسی، متادیتای صحنه‌ها
   hooks/          useReducedMotion, useIsCoarsePointer
@@ -27,9 +27,23 @@ src/
 
 ۰۱ ورود → ۰۲ تاریکی → ۰۳ نخستین آب → ۰۴ آکواریوم (Image Completion) → ۰۵ دنیای زنده (تعامل ماهی) → ۰۶ گونه‌ها → ۰۷ زمین‌شناسی → ۰۸ سنگ→آب→زندگی → ۰۹ بازدید
 
-## جایگزینی تصاویر واقعی
+## عکس‌های واقعی
 
-عکس‌های مرجع در `assets/images/cave-aquarium/` آپلود می‌شوند. کامپوننت‌های `src/components/visuals/*` در حال حاضر با گرادیان/SVG تولیدی جای عکس واقعی را پر می‌کنند؛ وقتی عکس/ویدیوی واقعی آماده شد، همان‌جا (با `next/image` یا `<video>`) جایگزین می‌شود بدون این‌که معماری انیمیشن‌ها تغییر کند.
+سایت از همان ابتدای ورود (Hero) با عکس‌های واقعی غار/آکواریوم ساخته شده — نه پلیس‌هولدر تولیدی. عکس‌های بهینه‌شده (WebP) که واقعاً توسط اپ سرو می‌شوند در `public/images/cave/` قرار دارند؛ نسخه‌ی آرشیوی/کیفیت اصلی همان فایل‌ها هم در `assets/images/cave-aquarium/` نگه‌داری می‌شود.
+
+| فایل | صحنه‌ای که استفاده شده |
+|---|---|
+| `hero-entrance` | ۰۱ ورود |
+| `darkness-threshold` | ۰۲ تاریکی |
+| `water-corridor` | ۰۳ نخستین آب |
+| `aquarium-window-clear` | ۰۴ آکواریوم Reveal |
+| `corridor-panorama-bright` | ۰۵ دنیای زنده |
+| `aquarium-window-plants` + `species-regal-angelfish` | ۰۶ گونه‌ها |
+| `corridor-stalagmites` | ۰۷ زمین‌شناسی |
+| `aquarium-window-light` | ۰۸ سنگ→آب→زندگی |
+| `corridor-warm-glow` | ۰۹ بازدید |
+
+عکس بیشتری لازم شد (مثلاً پرتره‌ی گونه‌های دیگر)، همان الگوی `photo?` در `src/data/species.ts` و `PhotoBackdrop`/`AquariumWindow` را دنبال کن — بدون نیاز به تغییر معماری انیمیشن‌ها.
 
 ## دسترسی‌پذیری و عملکرد
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { RockBackdrop } from "@/components/visuals/RockBackdrop";
+import { PhotoBackdrop } from "@/components/visuals/PhotoBackdrop";
 import { ParticleField } from "@/components/visuals/ParticleField";
 
 export function Scene01Hero() {
@@ -10,7 +10,13 @@ export function Scene01Hero() {
       aria-label="ورود به غار"
       className="relative flex h-[100svh] min-h-[560px] w-full items-center justify-center overflow-hidden"
     >
-      <RockBackdrop glow="center" intensity="dim" />
+      <PhotoBackdrop
+        src="/images/cave/hero-entrance.webp"
+        alt="نمای تاریک و مرموز از دل یک شکاف صخره‌ای، با نوری بسیار کم‌رنگ در انتهای مسیر"
+        glow="center"
+        intensity="dim"
+        priority
+      />
       <ParticleField variant="dust" count={26} className="absolute inset-0" />
 
       <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 px-6 text-center">

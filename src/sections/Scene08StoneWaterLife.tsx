@@ -6,7 +6,6 @@ import { useRef, useState } from "react";
 import { AquariumWindow } from "@/components/visuals/AquariumWindow";
 import { CaveWindowClipDefs } from "@/components/visuals/CaveWindowClip";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { species } from "@/data/species";
 import { storyChapters } from "@/data/geology";
 
 /**
@@ -56,7 +55,9 @@ export function Scene08StoneWaterLife() {
       <div className="sticky top-0 flex h-[100svh] w-full items-center justify-center overflow-hidden">
         <AquariumWindow
           reveal={Math.max(0, (p - 0.3) / 0.7)}
-          fish={species}
+          photoSrc="/images/cave/aquarium-window-light.webp"
+          photoAlt="آکواریومی درون‌صخره‌ای با پرتوهای نور و حباب‌های آب، پر از ماهی‌های رنگارنگ"
+          clipId="cave-window-b"
           className="aspect-[4/3] w-[min(90vw,760px)]"
         />
 

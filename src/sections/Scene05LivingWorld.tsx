@@ -2,25 +2,24 @@
 
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 import { useRef, useState } from "react";
-import { AquariumWindow } from "@/components/visuals/AquariumWindow";
-import { CaveWindowClipDefs } from "@/components/visuals/CaveWindowClip";
+import { ParticleField } from "@/components/visuals/ParticleField";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { species } from "@/data/species";
 import { cn } from "@/lib/utils";
 
 const captions = [
   {
-    title: "از چپ به راست",
-    text: "بعضی از این موجودات مسیر ثابتی ندارند؛ هر بار جور دیگری شنا می‌کنند.",
+    title: "نوری که از دل آب می‌گذرد",
+    text: "هر پرتو، مسیر خودش را در تاریکی پیدا می‌کند.",
   },
   {
-    title: "از عمق به سطح",
-    text: "حرکتشان تصادفی و طبیعی است، نه یک انیمیشن تکراری.",
+    title: "هر آکواریوم، دنیای خودش",
+    text: "ده‌ها متر سنگ، ده‌ها دنیای زنده‌ی جداگانه.",
   },
   {
-    title: "نور، آب را دنبال می‌کند",
-    text: "با هر تغییر نور، رنگ بدن ماهی‌ها کمی تغییر می‌کند.",
+    title: "سکوت صخره، همهمه‌ی حیات",
+    text: "بیرون سکوت است؛ پشت شیشه، زندگی در جریان است.",
   },
   {
     title: "یک دنیای کامل",
@@ -29,10 +28,10 @@ const captions = [
 ];
 
 /**
- * SCENE 05 — THE LIVING WORLD (Fish Interaction, brief §5/§7/§13)
- * The aquarium stays pinned/sticky while short captions step through on
- * top of it — position:sticky storytelling: the "page" feels still, the
- * story inside keeps moving.
+ * SCENE 05 — THE LIVING WORLD (brief §5/§7/§13)
+ * A real photograph of the aquarium corridor stays pinned/sticky while
+ * short captions step through on top of it — position:sticky storytelling:
+ * the "page" feels still, the story inside keeps moving.
  */
 export function Scene05LivingWorld() {
   const trackRef = useRef<HTMLElement>(null);
@@ -67,14 +66,22 @@ export function Scene05LivingWorld() {
       aria-label="دنیای زنده"
       className="relative h-[280vh] w-full bg-void"
     >
-      <CaveWindowClipDefs />
       <div className="sticky top-0 flex h-[100svh] w-full items-center justify-center overflow-hidden">
-        <AquariumWindow
-          reveal={1}
-          fish={species}
-          clipId="cave-window-b"
-          className="aspect-[4/3] w-[min(92vw,780px)] opacity-90"
+        <Image
+          src="/images/cave/corridor-panorama-bright.webp"
+          alt="راهروی غار با چند آکواریوم نورانی در دل صخره، پر از ماهی‌های رنگارنگ"
+          fill
+          sizes="100vw"
+          className="object-cover"
         />
+        <div className="absolute inset-0 bg-void/45" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(0deg, rgba(5,7,8,0.85) 0%, rgba(5,7,8,0.25) 45%, rgba(5,7,8,0.55) 100%)",
+          }}
+        />
+        <ParticleField variant="bubble" count={14} className="absolute inset-0" />
 
         <div className="pointer-events-none absolute inset-x-0 top-1/2 z-10 mx-auto max-w-md -translate-y-1/2 px-6">
           {reducedMotion ? (

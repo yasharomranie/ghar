@@ -1,5 +1,5 @@
 import { RevealText } from "@/components/RevealText";
-import { RockBackdrop } from "@/components/visuals/RockBackdrop";
+import { PhotoBackdrop } from "@/components/visuals/PhotoBackdrop";
 import { geologyFacts } from "@/data/geology";
 import { cn } from "@/lib/utils";
 
@@ -10,7 +10,13 @@ import { cn } from "@/lib/utils";
 export function Scene07Geology() {
   return (
     <section id="geology" aria-label="درباره غار" className="relative w-full overflow-hidden bg-void py-32">
-      <RockBackdrop glow="none" intensity="dim" className="opacity-60" />
+      <PhotoBackdrop
+        src="/images/cave/corridor-stalagmites.webp"
+        alt="ردیفی از آکواریوم‌ها دیده‌شده از میان قندیل‌های سنگی در پیش‌زمینه"
+        glow="none"
+        intensity="dim"
+        className="opacity-70"
+      />
 
       <div className="relative mx-auto max-w-4xl px-6">
         <RevealText className="mb-24 text-center">
