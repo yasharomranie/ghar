@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------
+ * Design tokens — cave / aquarium, cinematic dark palette.
+ * Sourced via the ui-ux-pro-max skill (dark-mode + parallax-storytelling
+ * style refs, oceanic/nature color families) and adapted for this brief.
+ * ------------------------------------------------------------------- */
+:root {
+  /* Depth scale — from the mouth of the cave to its darkest water */
+  --color-void: #050708; /* deepest black, page background */
+  --color-stone-900: #0e0d0b;
+  --color-stone-800: #1a1713;
+  --color-stone-700: #29241d;
+  --color-stone-600: #3c352a;
+
+  --color-moss-900: #071a14;
+  --color-moss-700: #0e2a20;
+  --color-moss-500: #17402f;
+
+  --color-ocean-900: #051c26;
+  --color-ocean-700: #0b3b4f;
+  --color-ocean-500: #124559;
+  --color-ocean-300: #1f6f8c;
+
+  --color-turquoise: #4fd8c4;
+  --color-turquoise-soft: #8fe9db;
+  --color-turquoise-dim: #2d7d70;
+
+  --color-foam: #f4efe3; /* warm white, typography */
+  --color-foam-dim: #cfc8b4;
+  --color-foam-faint: #8a8577;
+
+  --color-amber-glow: #d9a441; /* distant lantern light */
+
+  --ease-cave: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-water: cubic-bezier(0.45, 0, 0.15, 1);
+
+  --font-display: var(--font-vazirmatn), "Vazirmatn", ui-sans-serif, sans-serif;
+  --font-body: var(--font-vazirmatn), "Vazirmatn", ui-sans-serif, sans-serif;
+}
+
+@theme inline {
+  --color-void: var(--color-void);
+  --color-stone-900: var(--color-stone-900);
+  --color-stone-800: var(--color-stone-800);
+  --color-stone-700: var(--color-stone-700);
+  --color-stone-600: var(--color-stone-600);
+  --color-moss-900: var(--color-moss-900);
+  --color-moss-700: var(--color-moss-700);
+  --color-moss-500: var(--color-moss-500);
+  --color-ocean-900: var(--color-ocean-900);
+  --color-ocean-700: var(--color-ocean-700);
+  --color-ocean-500: var(--color-ocean-500);
+  --color-ocean-300: var(--color-ocean-300);
+  --color-turquoise: var(--color-turquoise);
+  --color-turquoise-soft: var(--color-turquoise-soft);
+  --color-turquoise-dim: var(--color-turquoise-dim);
+  --color-foam: var(--color-foam);
+  --color-foam-dim: var(--color-foam-dim);
+  --color-foam-faint: var(--color-foam-faint);
+  --color-amber-glow: var(--color-amber-glow);
+  --font-sans: var(--font-display);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-void);
+}
+
+/* Lenis takes over smooth scroll once mounted; native smooth-scroll stays
+   as the no-JS / reduced-motion fallback (design brief §3 Navigation). */
+html.lenis {
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-foam);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-turquoise-dim);
+  color: var(--color-foam);
+}
+
+/* Visible focus ring everywhere — never remove this (accessibility §1) */
+:focus-visible {
+  outline: 2px solid var(--color-turquoise);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.glass-nav {
+  background: rgba(5, 7, 8, 0.45);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-bottom: 1px solid rgba(244, 239, 227, 0.08);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
