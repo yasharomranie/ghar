@@ -182,6 +182,16 @@ body {
   --nav-border: var(--color-ink);
 }
 
+/* Pages with no full-bleed dark hero (e.g. an article) start right on the
+   theme-aware surface — the nav needs theme-aware text even before
+   .glass-nav kicks in, or it's a fixed-light-on-light-surface contrast
+   failure in light theme. See the hasHero check in Nav.tsx. */
+.theme-nav {
+  --nav-text: var(--color-ink);
+  --nav-text-dim: var(--color-ink-dim);
+  --nav-border: var(--color-ink);
+}
+
 .text-balance {
   text-wrap: balance;
 }

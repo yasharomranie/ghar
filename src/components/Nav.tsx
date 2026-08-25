@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { scenes } from "@/data/scenes";
@@ -12,6 +13,7 @@ const navScenes = scenes.filter((s) => s.navLabel);
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -20,11 +22,19 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Nav text is fixed-light by default because it floats over a dark hero
+  // photo while unscrolled (home, magazine listing) — but a page with no
+  // hero (an article) starts right on the theme-aware surface, so it needs
+  // theme-aware nav text from the start too, not just once .glass-nav
+  // kicks in. See the .theme-nav rule in globals.css.
+  const hasHero = pathname === "/" || pathname === "/magazine";
+
   return (
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-[background,border-color] duration-500",
         scrolled ? "glass-nav" : "border-b border-transparent bg-transparent",
+        !hasHero && "theme-nav",
       )}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
