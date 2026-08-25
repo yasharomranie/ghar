@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Article } from "@/data/articles";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -64,7 +65,9 @@ export function HeroSlider({ slides }: { slides: Article[] }) {
               {slide.category}
             </span>
             <h2 className="mt-3 max-w-2xl text-balance font-display text-2xl font-semibold leading-snug text-foam sm:text-4xl">
-              {slide.title}
+              <Link href={`/magazine/${slide.slug}`} className="transition-colors hover:text-turquoise-soft">
+                {slide.title}
+              </Link>
             </h2>
             <p className="mt-3 max-w-xl text-sm text-foam-dim sm:text-base">{slide.excerpt}</p>
             <div className="mt-3 flex items-center gap-3 text-xs text-foam-faint">
@@ -72,6 +75,22 @@ export function HeroSlider({ slides }: { slides: Article[] }) {
               <span aria-hidden="true">·</span>
               <span>{slide.readTime} مطالعه</span>
             </div>
+            <Link
+              href={`/magazine/${slide.slug}`}
+              className="mt-4 inline-flex w-fit items-center gap-2 text-sm text-turquoise-soft transition-colors hover:text-turquoise"
+            >
+              ادامه مطلب
+              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" aria-hidden="true">
+                <path
+                  d="M15 6l-6 6 6 6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
       ))}

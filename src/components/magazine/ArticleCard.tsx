@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Article } from "@/data/articles";
 import { cn } from "@/lib/utils";
 
@@ -19,6 +20,12 @@ export function ArticleCard({
         className,
       )}
     >
+      {/* Stretched-link pattern: the whole card is one click target, but the
+          title stays the real accessible name instead of the visual card. */}
+      <Link href={`/magazine/${article.slug}`} className="absolute inset-0 z-10 rounded-2xl">
+        <span className="sr-only">{article.title}</span>
+      </Link>
+
       <div className="relative aspect-[4/3] w-full overflow-hidden">
         <Image
           src={article.image}
