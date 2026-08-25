@@ -38,8 +38,8 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
   if (headings.length === 0) return null;
 
   return (
-    <nav aria-label="فهرست مطالب" className="rounded-2xl border border-foam/10 bg-stone-900/40 p-5">
-      <p className="font-display text-xs uppercase tracking-[0.3em] text-turquoise-soft">فهرست مطالب</p>
+    <nav aria-label="فهرست مطالب" className="rounded-2xl border border-ink/10 bg-surface-raised/40 p-5">
+      <p className="font-display text-xs uppercase tracking-[0.3em] text-accent-soft">فهرست مطالب</p>
       <ol className="mt-4 flex flex-col gap-1 text-sm">
         {headings.map((h) => (
           <li key={h.id}>
@@ -49,8 +49,8 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
               className={cn(
                 "block border-s-2 py-1.5 ps-4 transition-colors",
                 activeId === h.id
-                  ? "border-turquoise text-foam"
-                  : "border-foam/10 text-foam-dim hover:border-foam/30 hover:text-foam",
+                  ? "border-accent text-ink"
+                  : "border-ink/10 text-ink-dim hover:border-ink/30 hover:text-ink",
               )}
             >
               {h.text}

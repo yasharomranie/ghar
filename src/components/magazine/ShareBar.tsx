@@ -20,14 +20,14 @@ export function ShareBar({ slug }: { slug: string }) {
   }
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-4 border-y border-foam/10 py-5">
-      <Link href="/magazine" className="text-sm text-foam-dim transition-colors hover:text-foam">
+    <div className="flex flex-wrap items-center justify-between gap-4 border-y border-ink/10 py-5">
+      <Link href="/magazine" className="text-sm text-ink-dim transition-colors hover:text-ink">
         → بازگشت به مجله
       </Link>
       <button
         type="button"
         onClick={handleCopy}
-        className="rounded-full border border-foam/25 px-4 py-2 text-sm text-foam transition-colors hover:bg-white/5"
+        className="rounded-full border border-ink/25 px-4 py-2 text-sm text-ink transition-colors hover:bg-ink/5"
       >
         {copied ? "لینک کپی شد" : "کپی لینک مقاله"}
       </button>

@@ -40,17 +40,17 @@ export function FeaturedCarousel({ articles }: { articles: Article[] }) {
     <section
       id="featured"
       aria-label="مطالب ویژه"
-      className="relative w-full bg-void py-20"
+      className="relative w-full bg-surface py-20"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <div className="mb-10 flex items-end justify-between">
           <div>
-            <p className="font-display text-xs uppercase tracking-[0.35em] text-turquoise-soft">
+            <p className="font-display text-xs uppercase tracking-[0.35em] text-accent-soft">
               FEATURED
             </p>
-            <h2 className="mt-2 font-display text-2xl font-semibold text-foam sm:text-3xl">
+            <h2 className="mt-2 font-display text-2xl font-semibold text-ink sm:text-3xl">
               مطالب ویژه
             </h2>
           </div>
@@ -66,7 +66,7 @@ export function FeaturedCarousel({ articles }: { articles: Article[] }) {
                   aria-current={i === page}
                   className={cn(
                     "h-1.5 rounded-full transition-all",
-                    i === page ? "w-6 bg-turquoise" : "w-1.5 bg-foam/25 hover:bg-foam/45",
+                    i === page ? "w-6 bg-accent" : "w-1.5 bg-ink/25 hover:bg-ink/45",
                   )}
                 />
               ))}

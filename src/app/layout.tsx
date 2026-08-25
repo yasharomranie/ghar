@@ -6,6 +6,7 @@ import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
 import { Nav } from "@/components/Nav";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CustomCursor } from "@/components/CustomCursor";
+import { themeInitScript } from "@/lib/theme";
 
 const vazirmatn = Vazirmatn({
   variable: "--font-vazirmatn",
@@ -48,8 +49,22 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="fa" dir="rtl" className={`${vazirmatn.variable} h-full antialiased`}>
-      <body className="min-h-full bg-void text-foam">
+    <html
+      lang="fa"
+      dir="rtl"
+      className={`${vazirmatn.variable} h-full antialiased`}
+      // data-theme is set by the inline anti-flash script below, before
+      // React hydrates — it will always differ from the server-rendered
+      // markup (which has no theme yet), so this specific mismatch is
+      // expected and safe to suppress rather than a real bug.
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Sets data-theme before hydration so the page never flashes the
+            wrong theme for a returning visitor (see src/lib/theme.ts). */}
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="min-h-full bg-surface text-ink">
         <SmoothScrollProvider>
           <a
             href="#main-content"

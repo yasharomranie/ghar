@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { scenes } from "@/data/scenes";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const navScenes = scenes.filter((s) => s.navLabel);
 
@@ -27,7 +28,10 @@ export function Nav() {
       )}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
-        <Link href="/" className="font-display text-lg font-semibold tracking-wide text-foam">
+        <Link
+          href="/"
+          className="font-display text-lg font-semibold tracking-wide text-[var(--nav-text)]"
+        >
           غار <span className="text-turquoise">زنده</span>
         </Link>
 
@@ -36,44 +40,51 @@ export function Nav() {
             <Link
               key={s.id}
               href={`/#${s.id}`}
-              className="text-sm text-foam-dim transition-colors hover:text-foam"
+              className="text-sm text-[var(--nav-text-dim)] transition-colors hover:text-[var(--nav-text)]"
             >
               {s.navLabel}
             </Link>
           ))}
-          <Link href="/magazine" className="text-sm text-foam-dim transition-colors hover:text-foam">
+          <Link
+            href="/magazine"
+            className="text-sm text-[var(--nav-text-dim)] transition-colors hover:text-[var(--nav-text)]"
+          >
             مجله خبری
           </Link>
           <Link
             href="/#visit"
-            className="rounded-full border border-foam/25 px-4 py-2 text-sm text-foam transition-colors hover:bg-white/5"
+            className="rounded-full border border-[var(--nav-border)]/25 px-4 py-2 text-sm text-[var(--nav-text)] transition-colors hover:bg-[var(--nav-text)]/5"
           >
             برنامه بازدید
           </Link>
+          <ThemeToggle />
         </nav>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-foam md:hidden"
-          aria-expanded={open}
-          aria-label={open ? "بستن منو" : "باز کردن منو"}
-        >
-          <span className="relative block h-3 w-4">
-            <span
-              className={cn(
-                "absolute inset-x-0 top-0 h-px bg-current transition-transform",
-                open && "translate-y-[6px] rotate-45",
-              )}
-            />
-            <span
-              className={cn(
-                "absolute inset-x-0 bottom-0 h-px bg-current transition-transform",
-                open && "-translate-y-[6px] -rotate-45",
-              )}
-            />
-          </span>
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--nav-border)]/15 text-[var(--nav-text)]"
+            aria-expanded={open}
+            aria-label={open ? "بستن منو" : "باز کردن منو"}
+          >
+            <span className="relative block h-3 w-4">
+              <span
+                className={cn(
+                  "absolute inset-x-0 top-0 h-px bg-current transition-transform",
+                  open && "translate-y-[6px] rotate-45",
+                )}
+              />
+              <span
+                className={cn(
+                  "absolute inset-x-0 bottom-0 h-px bg-current transition-transform",
+                  open && "-translate-y-[6px] -rotate-45",
+                )}
+              />
+            </span>
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -92,7 +103,7 @@ export function Nav() {
                   key={s.id}
                   href={`/#${s.id}`}
                   onClick={() => setOpen(false)}
-                  className="py-3 text-base text-foam-dim"
+                  className="py-3 text-base text-[var(--nav-text-dim)]"
                 >
                   {s.navLabel}
                 </Link>
@@ -100,7 +111,7 @@ export function Nav() {
               <Link
                 href="/magazine"
                 onClick={() => setOpen(false)}
-                className="py-3 text-base text-foam-dim"
+                className="py-3 text-base text-[var(--nav-text-dim)]"
               >
                 مجله خبری
               </Link>

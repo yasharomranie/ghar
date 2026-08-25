@@ -45,13 +45,13 @@ export function ArticleGrid({ articles }: { articles: Article[] }) {
   }, [articles.length]);
 
   return (
-    <section id="latest" aria-label="آخرین مطالب" className="relative w-full bg-void py-20">
+    <section id="latest" aria-label="آخرین مطالب" className="relative w-full bg-surface py-20">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <div className="mb-10">
-          <p className="font-display text-xs uppercase tracking-[0.35em] text-turquoise-soft">
+          <p className="font-display text-xs uppercase tracking-[0.35em] text-accent-soft">
             LATEST
           </p>
-          <h2 className="mt-2 font-display text-2xl font-semibold text-foam sm:text-3xl">
+          <h2 className="mt-2 font-display text-2xl font-semibold text-ink sm:text-3xl">
             آخرین مطالب
           </h2>
         </div>
@@ -64,8 +64,8 @@ export function ArticleGrid({ articles }: { articles: Article[] }) {
 
         <div ref={sentinelRef} className="flex h-20 items-center justify-center" aria-hidden={!loading}>
           {loading && (
-            <span className="flex items-center gap-3 text-sm text-foam-faint">
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-foam/20 border-t-turquoise" />
+            <span className="flex items-center gap-3 text-sm text-ink-faint">
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-ink/20 border-t-accent" />
               در حال بارگذاری مطالب بیشتر…
             </span>
           )}

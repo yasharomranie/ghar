@@ -16,7 +16,7 @@ export function ArticleCard({
     <article
       dir="rtl"
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-foam/10 bg-stone-900/50 transition-colors duration-300 hover:border-turquoise-dim",
+        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink/10 bg-surface-raised/50 transition-colors duration-300 hover:border-accent-dim",
         className,
       )}
     >
@@ -42,11 +42,11 @@ export function ArticleCard({
       </div>
 
       <div className="flex flex-1 flex-col gap-2 p-5">
-        <h3 className="line-clamp-2 font-display text-base font-semibold leading-snug text-foam">
+        <h3 className="line-clamp-2 font-display text-base font-semibold leading-snug text-ink">
           {article.title}
         </h3>
-        <p className="line-clamp-2 flex-1 text-sm leading-relaxed text-foam-dim">{article.excerpt}</p>
-        <div className="mt-2 flex items-center gap-3 text-xs text-foam-faint">
+        <p className="line-clamp-2 flex-1 text-sm leading-relaxed text-ink-dim">{article.excerpt}</p>
+        <div className="mt-2 flex items-center gap-3 text-xs text-ink-faint">
           <span>{article.date}</span>
           <span aria-hidden="true">·</span>
           <span>{article.readTime} مطالعه</span>

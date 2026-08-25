@@ -16,7 +16,7 @@ export function ArticleBody({ blocks }: { blocks: ArticleBlock[] }) {
   }, []);
 
   return (
-    <div className="flex flex-col gap-6 text-[15px] leading-8 text-foam-dim sm:text-base sm:leading-9">
+    <div className="flex flex-col gap-6 text-[15px] leading-8 text-ink-dim sm:text-base sm:leading-9">
       {blocks.map((block, i) => {
         switch (block.type) {
           case "p":
@@ -29,7 +29,7 @@ export function ArticleBody({ blocks }: { blocks: ArticleBlock[] }) {
               <h2
                 key={i}
                 id={headingIds[i]}
-                className="scroll-mt-28 font-display text-xl font-semibold text-foam sm:text-2xl"
+                className="scroll-mt-28 font-display text-xl font-semibold text-ink sm:text-2xl"
               >
                 {block.text}
               </h2>
@@ -39,7 +39,7 @@ export function ArticleBody({ blocks }: { blocks: ArticleBlock[] }) {
             return (
               <blockquote
                 key={i}
-                className="border-s-4 border-turquoise-dim bg-stone-900/40 py-4 ps-6 font-display text-lg leading-relaxed text-foam"
+                className="border-s-4 border-accent-dim bg-surface-raised/40 py-4 ps-6 font-display text-lg leading-relaxed text-ink"
               >
                 {block.text}
               </blockquote>
@@ -50,7 +50,7 @@ export function ArticleBody({ blocks }: { blocks: ArticleBlock[] }) {
               <ul key={i} className="flex flex-col gap-2.5">
                 {block.items?.map((item, ii) => (
                   <li key={ii} className="flex gap-3">
-                    <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 flex-none rounded-full bg-turquoise" />
+                    <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 flex-none rounded-full bg-accent" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -60,7 +60,7 @@ export function ArticleBody({ blocks }: { blocks: ArticleBlock[] }) {
           case "image":
             if (!block.image) return null;
             return (
-              <figure key={i} className="overflow-hidden rounded-2xl border border-foam/10">
+              <figure key={i} className="overflow-hidden rounded-2xl border border-ink/10">
                 <div className="relative aspect-[16/9] w-full">
                   <Image
                     src={block.image}
@@ -71,7 +71,7 @@ export function ArticleBody({ blocks }: { blocks: ArticleBlock[] }) {
                   />
                 </div>
                 {block.caption && (
-                  <figcaption className="bg-stone-900/60 px-4 py-2 text-xs text-foam-faint">
+                  <figcaption className="bg-surface-raised/60 px-4 py-2 text-xs text-ink-faint">
                     {block.caption}
                   </figcaption>
                 )}

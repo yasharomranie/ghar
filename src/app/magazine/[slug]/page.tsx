@@ -63,27 +63,27 @@ export default async function ArticlePage({
     <>
       <article>
         <div className="mx-auto max-w-4xl px-6 pt-32 md:px-10">
-          <nav aria-label="مسیر صفحه" className="flex flex-wrap items-center gap-2 text-xs text-foam-faint">
-            <Link href="/" className="transition-colors hover:text-foam-dim">
+          <nav aria-label="مسیر صفحه" className="flex flex-wrap items-center gap-2 text-xs text-ink-faint">
+            <Link href="/" className="transition-colors hover:text-ink-dim">
               غار زنده
             </Link>
             <span aria-hidden="true">/</span>
-            <Link href="/magazine" className="transition-colors hover:text-foam-dim">
+            <Link href="/magazine" className="transition-colors hover:text-ink-dim">
               مجله خبری
             </Link>
             <span aria-hidden="true">/</span>
-            <span className="text-foam-dim">{article.category}</span>
+            <span className="text-ink-dim">{article.category}</span>
           </nav>
 
           <div className="mt-6">
-            <span className="inline-block rounded-full bg-turquoise-dim/20 px-3 py-1 font-display text-xs text-turquoise-soft">
+            <span className="inline-block rounded-full bg-accent-dim/20 px-3 py-1 font-display text-xs text-accent-soft">
               {article.category}
             </span>
-            <h1 className="mt-4 text-balance font-display text-3xl font-bold leading-snug text-foam sm:text-4xl">
+            <h1 className="mt-4 text-balance font-display text-3xl font-bold leading-snug text-ink sm:text-4xl">
               {article.title}
             </h1>
-            <div className="mt-5 flex flex-wrap items-center gap-3 text-sm text-foam-faint">
-              <span className="text-foam-dim">{author}</span>
+            <div className="mt-5 flex flex-wrap items-center gap-3 text-sm text-ink-faint">
+              <span className="text-ink-dim">{author}</span>
               <span aria-hidden="true">·</span>
               <span>{article.date}</span>
               <span aria-hidden="true">·</span>
@@ -93,7 +93,7 @@ export default async function ArticlePage({
         </div>
 
         <div className="mx-auto mt-8 max-w-5xl px-6 md:px-10">
-          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-foam/10">
+          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-ink/10">
             <Image
               src={article.image}
               alt={article.title}
