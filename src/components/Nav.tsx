@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { scenes } from "@/data/scenes";
@@ -26,26 +27,29 @@ export function Nav() {
       )}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
-        <a href="#hero" className="font-display text-lg font-semibold tracking-wide text-foam">
+        <Link href="/" className="font-display text-lg font-semibold tracking-wide text-foam">
           غار <span className="text-turquoise">زنده</span>
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="پیمایش اصلی">
           {navScenes.map((s) => (
-            <a
+            <Link
               key={s.id}
-              href={`#${s.id}`}
+              href={`/#${s.id}`}
               className="text-sm text-foam-dim transition-colors hover:text-foam"
             >
               {s.navLabel}
-            </a>
+            </Link>
           ))}
-          <a
-            href="#visit"
+          <Link href="/magazine" className="text-sm text-foam-dim transition-colors hover:text-foam">
+            مجله خبری
+          </Link>
+          <Link
+            href="/#visit"
             className="rounded-full border border-foam/25 px-4 py-2 text-sm text-foam transition-colors hover:bg-white/5"
           >
             برنامه بازدید
-          </a>
+          </Link>
         </nav>
 
         <button
@@ -84,15 +88,22 @@ export function Nav() {
           >
             <div className="flex flex-col gap-1 px-6 pb-6">
               {navScenes.map((s) => (
-                <a
+                <Link
                   key={s.id}
-                  href={`#${s.id}`}
+                  href={`/#${s.id}`}
                   onClick={() => setOpen(false)}
                   className="py-3 text-base text-foam-dim"
                 >
                   {s.navLabel}
-                </a>
+                </Link>
               ))}
+              <Link
+                href="/magazine"
+                onClick={() => setOpen(false)}
+                className="py-3 text-base text-foam-dim"
+              >
+                مجله خبری
+              </Link>
             </div>
           </motion.nav>
         )}

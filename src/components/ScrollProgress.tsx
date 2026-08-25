@@ -1,19 +1,24 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { scenes } from "@/data/scenes";
 
 /**
  * Vertical progress rail (design brief §16): a thin line that fills with
  * scroll, plus the current Scene's index/label. Hidden on small screens
- * where it would compete with thumb-reach content.
+ * where it would compete with thumb-reach content. The Scene ids only exist
+ * on the home page's scroll story, so the rail only renders there.
  */
 export function ScrollProgress() {
+  const pathname = usePathname();
   const [progress, setProgress] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const observerTargets = useRef<HTMLElement[]>([]);
+  const isHome = pathname === "/";
 
   useEffect(() => {
+    if (!isHome) return;
     const onScroll = () => {
       const doc = document.documentElement;
       const max = doc.scrollHeight - doc.clientHeight;
@@ -22,9 +27,10 @@ export function ScrollProgress() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isHome]);
 
   useEffect(() => {
+    if (!isHome) return;
     const els = scenes
       .map((s) => document.getElementById(s.id))
       .filter((el): el is HTMLElement => !!el);
@@ -44,7 +50,9 @@ export function ScrollProgress() {
 
     els.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [isHome]);
+
+  if (!isHome) return null;
 
   const active = scenes[activeIndex];
 

@@ -7,6 +7,7 @@ import { Scene06Species } from "@/sections/Scene06Species";
 import { Scene07Geology } from "@/sections/Scene07Geology";
 import { Scene08StoneWaterLife } from "@/sections/Scene08StoneWaterLife";
 import { Scene09Visit } from "@/sections/Scene09Visit";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <Scene07Geology />
       <Scene08StoneWaterLife />
       <Scene09Visit />
+      <Footer />
     </>
   );
 }
