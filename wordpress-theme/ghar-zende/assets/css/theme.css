@@ -3575,6 +3575,16 @@ body {
   will-change: transform;
 }
 
+/* Same stacking-context containment as .species-card below: #darkness is
+   only position:relative (no z-index/transform/opacity of its own), so
+   without isolation its positioned children's z-index values compete
+   globally against every other stacked element on the page (nav, custom
+   cursor, other scenes' own z-10 text) instead of staying scoped to this
+   section — a real risk for a small z-index:2 layer like .torch-layer. */
+#darkness {
+  isolation: isolate;
+}
+
 /* Torch/flashlight sweeping the darkness scene, masked to a small circle
    that follows the cursor (--mx/--my set by assets/js/home.js). */
 .torch-layer {
@@ -3690,8 +3700,17 @@ body {
 
 /* Species card: cursor-follow spotlight (--mx/--my inherit from the card,
    set by assets/js/home.js) layered on top of the existing hover/focus
-   highlight, plus a gentle 3D tilt. */
+   highlight, plus a gentle 3D tilt.
+   isolation:isolate is load-bearing here, not decorative: .species-glow
+   has z-index:-10 (from Scene06Species.tsx's own className) so it paints
+   behind the card's own background — but only once .species-card forms a
+   stacking context. Without one, that negative z-index escapes upward to
+   whichever ancestor DOES have a context (in practice: nowhere reliable),
+   and the glow silently paints behind #species's own near-black backdrop
+   instead — never visible at all, confirmed by a local render test. */
 .species-card {
+  position: relative;
+  isolation: isolate;
   transform-style: preserve-3d;
   will-change: transform;
 }

@@ -50,6 +50,18 @@ function ghar_zende_setup() {
 add_action( 'after_setup_theme', 'ghar_zende_setup' );
 
 /**
+ * Cache-busting version for a theme asset: the file's own mtime, so every
+ * edit automatically invalidates browser/proxy caches without anyone
+ * having to remember to bump GHAR_ZENDE_VERSION by hand. Falls back to
+ * the theme version if the file can't be stat'd for some reason.
+ */
+function ghar_zende_asset_ver( $relative_path ) {
+	$file  = GHAR_ZENDE_DIR . $relative_path;
+	$mtime = file_exists( $file ) ? filemtime( $file ) : false;
+	return $mtime ? $mtime : GHAR_ZENDE_VERSION;
+}
+
+/**
  * Styles & scripts.
  *
  * Load order matters: gsap -> ScrollTrigger -> theme.js (shared: header
@@ -64,19 +76,19 @@ function ghar_zende_assets() {
 		null
 	);
 
-	wp_enqueue_style( 'ghar-zende-theme', GHAR_ZENDE_URI . '/assets/css/theme.css', array(), GHAR_ZENDE_VERSION );
+	wp_enqueue_style( 'ghar-zende-theme', GHAR_ZENDE_URI . '/assets/css/theme.css', array(), ghar_zende_asset_ver( '/assets/css/theme.css' ) );
 
-	wp_enqueue_script( 'ghar-zende-theme-js', GHAR_ZENDE_URI . '/assets/js/theme.js', array(), GHAR_ZENDE_VERSION, true );
+	wp_enqueue_script( 'ghar-zende-theme-js', GHAR_ZENDE_URI . '/assets/js/theme.js', array(), ghar_zende_asset_ver( '/assets/js/theme.js' ), true );
 
 	if ( is_front_page() ) {
-		wp_enqueue_script( 'lenis', GHAR_ZENDE_URI . '/assets/lib/lenis.min.js', array(), GHAR_ZENDE_VERSION, true );
-		wp_enqueue_script( 'gsap', GHAR_ZENDE_URI . '/assets/lib/gsap.min.js', array(), GHAR_ZENDE_VERSION, true );
-		wp_enqueue_script( 'gsap-scrolltrigger', GHAR_ZENDE_URI . '/assets/lib/ScrollTrigger.min.js', array( 'gsap' ), GHAR_ZENDE_VERSION, true );
-		wp_enqueue_script( 'ghar-zende-home', GHAR_ZENDE_URI . '/assets/js/home.js', array( 'lenis', 'gsap', 'gsap-scrolltrigger' ), GHAR_ZENDE_VERSION, true );
+		wp_enqueue_script( 'lenis', GHAR_ZENDE_URI . '/assets/lib/lenis.min.js', array(), ghar_zende_asset_ver( '/assets/lib/lenis.min.js' ), true );
+		wp_enqueue_script( 'gsap', GHAR_ZENDE_URI . '/assets/lib/gsap.min.js', array(), ghar_zende_asset_ver( '/assets/lib/gsap.min.js' ), true );
+		wp_enqueue_script( 'gsap-scrolltrigger', GHAR_ZENDE_URI . '/assets/lib/ScrollTrigger.min.js', array( 'gsap' ), ghar_zende_asset_ver( '/assets/lib/ScrollTrigger.min.js' ), true );
+		wp_enqueue_script( 'ghar-zende-home', GHAR_ZENDE_URI . '/assets/js/home.js', array( 'lenis', 'gsap', 'gsap-scrolltrigger' ), ghar_zende_asset_ver( '/assets/js/home.js' ), true );
 	}
 
 	if ( is_post_type_archive( 'cave_article' ) || is_page_template( 'archive-cave_article.php' ) ) {
-		wp_enqueue_script( 'ghar-zende-magazine', GHAR_ZENDE_URI . '/assets/js/magazine.js', array( 'ghar-zende-theme-js' ), GHAR_ZENDE_VERSION, true );
+		wp_enqueue_script( 'ghar-zende-magazine', GHAR_ZENDE_URI . '/assets/js/magazine.js', array( 'ghar-zende-theme-js' ), ghar_zende_asset_ver( '/assets/js/magazine.js' ), true );
 		wp_localize_script(
 			'ghar-zende-magazine',
 			'GHAR_MAGAZINE',
@@ -88,7 +100,7 @@ function ghar_zende_assets() {
 	}
 
 	if ( is_singular( 'cave_article' ) ) {
-		wp_enqueue_script( 'ghar-zende-article', GHAR_ZENDE_URI . '/assets/js/article.js', array( 'ghar-zende-theme-js' ), GHAR_ZENDE_VERSION, true );
+		wp_enqueue_script( 'ghar-zende-article', GHAR_ZENDE_URI . '/assets/js/article.js', array( 'ghar-zende-theme-js' ), ghar_zende_asset_ver( '/assets/js/article.js' ), true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'ghar_zende_assets' );
