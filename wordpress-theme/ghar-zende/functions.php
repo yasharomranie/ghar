@@ -99,51 +99,65 @@ add_action( 'wp_enqueue_scripts', 'ghar_zende_assets' );
 require_once GHAR_ZENDE_DIR . '/inc/cpt-articles.php';
 require_once GHAR_ZENDE_DIR . '/inc/helpers.php';
 require_once GHAR_ZENDE_DIR . '/inc/importer.php';
+require_once GHAR_ZENDE_DIR . '/inc/nav-walker.php';
 
 /**
  * Fallback primary menu — used until an admin assigns a real one under
- * Appearance → Menus. Anchors point at home-page section ids so links work
- * correctly from any page (matches Nav.tsx's `/#id` pattern).
+ * Appearance → Menus. Same 6 links/order/anchors as the original Nav.tsx
+ * (scenes.ts's navLabel entries + مجله خبری + the برنامه بازدید CTA),
+ * printed as bare <a> tags — no <ul>/<li> — so they lay out exactly like
+ * the WP-menu path below (both are flex siblings of the logo/toggle).
  */
-function ghar_zende_fallback_menu() {
-	$home = trailingslashit( home_url( '/' ) );
+function ghar_zende_fallback_menu( $context = 'desktop' ) {
 	$items = array(
-		array( home_url( '/#aquarium-track' ), 'آکواریوم زنده' ),
-		array( home_url( '/#species' ), 'گونه‌ها' ),
-		array( home_url( '/#story' ), 'داستان غار' ),
-		array( home_url( '/magazine' ), 'مجله خبری' ),
-		array( home_url( '/#visit' ), 'برنامه بازدید' ),
+		array( home_url( '/#hero' ), 'غار', false ),
+		array( home_url( '/#aquarium' ), 'آکواریوم', false ),
+		array( home_url( '/#species' ), 'گونه‌ها', false ),
+		array( home_url( '/#geology' ), 'درباره غار', false ),
+		array( home_url( '/magazine' ), 'مجله خبری', false ),
+		array( home_url( '/#visit' ), 'برنامه بازدید', true ),
 	);
 
-	echo '<nav class="primary-nav" aria-label="پیمایش اصلی"><ul class="primary-nav-list">';
 	foreach ( $items as $item ) {
+		list( $url, $label, $is_cta ) = $item;
+
+		if ( 'mobile' === $context ) {
+			// The original mobile panel skips the CTA pill — it's a plain
+			// link list there, same as every other item.
+			$class = 'py-3 text-base text-[var(--nav-text-dim)]';
+		} elseif ( $is_cta ) {
+			$class = 'rounded-full border border-[var(--nav-border)]/25 px-4 py-2 text-sm text-[var(--nav-text)] transition-colors hover:bg-[var(--nav-text)]/5';
+		} else {
+			$class = 'text-sm text-[var(--nav-text-dim)] transition-colors hover:text-[var(--nav-text)]';
+		}
+
 		printf(
-			'<li><a href="%1$s">%2$s</a></li>',
-			esc_url( $item[0] ),
-			esc_html( $item[1] )
+			'<a href="%1$s" class="%2$s">%3$s</a>',
+			esc_url( $url ),
+			esc_attr( $class ),
+			esc_html( $label )
 		);
 	}
-	echo '</ul></nav>';
 }
 
 /**
- * Prints the primary nav, falling back to the hardcoded list above when no
- * menu has been assigned yet.
+ * Prints the primary nav — a real WordPress menu (Appearance → Menus →
+ * assign to "منوی اصلی") rendered flat via Ghar_Zende_Nav_Walker, or the
+ * hardcoded list above until one is assigned.
  */
-function ghar_zende_primary_nav() {
+function ghar_zende_primary_nav( $context = 'desktop' ) {
 	if ( has_nav_menu( 'primary' ) ) {
 		wp_nav_menu(
 			array(
 				'theme_location' => 'primary',
-				'container'      => 'nav',
-				'container_class' => 'primary-nav',
-				'menu_class'     => 'primary-nav-list',
+				'container'      => false,
+				'items_wrap'     => '%3$s',
 				'depth'          => 1,
-				'fallback_cb'    => 'ghar_zende_fallback_menu',
+				'walker'         => new Ghar_Zende_Nav_Walker( $context ),
 			)
 		);
 	} else {
-		ghar_zende_fallback_menu();
+		ghar_zende_fallback_menu( $context );
 	}
 }
 

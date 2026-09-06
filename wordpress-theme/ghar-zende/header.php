@@ -40,7 +40,7 @@ $ghar_has_hero = ghar_zende_has_hero();
     <a class="font-display text-lg font-semibold tracking-wide text-[var(--nav-text)]" href="<?php echo esc_url( home_url( '/' ) ); ?>">غار <span class="text-turquoise">زنده</span></a>
 
     <nav class="hidden items-center gap-8 md:flex" aria-label="پیمایش اصلی">
-      <?php ghar_zende_primary_nav(); ?>
+      <?php ghar_zende_primary_nav( 'desktop' ); ?>
       <button type="button" id="themeToggle" aria-pressed="false" aria-label="فعال‌سازی حالت روشن" class="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--nav-border)]/25 text-[var(--nav-text)] transition-colors hover:border-accent hover:text-accent-soft">
         <svg viewBox="0 0 24 24" class="h-4 w-4" aria-hidden="true" id="themeIconMoon"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <svg viewBox="0 0 24 24" class="h-4 w-4" aria-hidden="true" id="themeIconSun" hidden><path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.36-6.36-1.42 1.42M7.05 16.95l-1.41 1.41m0-12.72 1.41 1.42m9.9 9.9 1.42 1.41M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -62,7 +62,7 @@ $ghar_has_hero = ghar_zende_has_hero();
 
   <nav id="mobileNav" class="glass-nav overflow-hidden md:hidden" style="height:0;opacity:0" aria-label="پیمایش موبایل">
     <div class="flex flex-col gap-1 px-6 pb-6">
-      <?php ghar_zende_primary_nav(); ?>
+      <?php ghar_zende_primary_nav( 'mobile' ); ?>
     </div>
   </nav>
 </header>
