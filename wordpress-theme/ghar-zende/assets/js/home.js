@@ -33,11 +33,6 @@
   function mapRange(value, inMin, inMax) {
     return clamp01((value - inMin) / (inMax - inMin));
   }
-  function easeOutBack(x) {
-    var c1 = 1.70158,
-      c3 = c1 + 1;
-    return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
-  }
 
   /* ---------------------------------------------------------------
    * Lenis smooth scroll <-> GSAP ticker bridge.
@@ -631,8 +626,15 @@
   }
 
   function applyStory(p) {
-    var partRaw = clamp01(p / 0.55);
-    var partOpen = reducedMotion ? partRaw : clamp01(easeOutBack(partRaw));
+    // Plain linear progress (matches Scene08StoneWaterLife.tsx's own
+    // Math.min(1, p/0.55) exactly) — NOT eased. "back" easing overshoots
+    // past 1 before settling, and since this value is scroll-scrubbed
+    // (not time-based), clamping that overshoot to 1 meant the shutters
+    // snapped fully open by ~25% into this phase and then sat frozen
+    // there for the rest of the scroll — reading as the effect stopping
+    // partway rather than finishing "too early". A monotonic curve keeps
+    // the shutters moving for the whole scroll range they're meant to.
+    var partOpen = clamp01(p / 0.55);
     if (storyWindow) setAquariumWindow(storyWindow, Math.max(0, (p - 0.3) / 0.7));
     if (storyStart) storyStart.style.transform = "translateX(" + -partOpen * 100 + "%)";
     if (storyEnd) storyEnd.style.transform = "translateX(" + partOpen * 100 + "%)";
