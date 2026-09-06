@@ -140,15 +140,12 @@ $geology_facts = array(
       </clipPath>
     </defs>
   </svg>
-  <div id="aquariumSticky" class="sticky top-0 flex h-[100svh] w-full items-center justify-center overflow-hidden">
-    <div class="absolute inset-0" aria-hidden="true">
-      <img alt="راهروی سنگی غار در پس‌زمینه‌ی آکواریوم" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'corridor-panorama-dark.webp' ) ); ?>" />
-      <div class="absolute inset-0 bg-void/70"></div>
-      <div class="absolute inset-0" style="background:radial-gradient(55% 55% at 50% 50%, transparent 0%, var(--color-void) 88%)"></div>
-      <div class="noise-overlay"></div>
-    </div>
+  <div id="aquariumSticky" class="sticky top-0 flex h-[100svh] w-full items-center justify-center overflow-hidden bg-void">
     <div id="aquariumWindow" class="relative aspect-[4/3] w-[min(88vw,720px)]">
-      <div class="absolute inset-0" style="background:radial-gradient(120% 100% at 30% 20%, var(--color-stone-700), var(--color-stone-900) 70%);box-shadow:inset 0 0 60px rgba(0,0,0,0.6)"></div>
+      <div class="absolute inset-0 overflow-hidden">
+        <img alt="سنگ خام دیواره‌ی غار، اطراف پنجره‌ی آکواریوم" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'corridor-panorama-dark.webp' ) ); ?>" />
+        <div class="absolute inset-0" style="background:radial-gradient(120% 100% at 30% 20%, rgba(26,23,19,0.35) 0%, rgba(5,7,8,0.88) 75%);box-shadow:inset 0 0 60px rgba(0,0,0,0.6)"></div>
+      </div>
       <div class="absolute inset-[6%] overflow-hidden" style="clip-path:url(#cave-window-a)">
         <div class="js-aq-photo absolute inset-0 scale-110 transition-[filter] duration-150" style="filter:brightness(0.1) saturate(0.15) blur(16px)">
           <img alt="آکواریومی درون‌صخره‌ای با نور آبی، گیاهان آبزی و چند ماهی رنگارنگ" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'aquarium-window-clear.webp' ) ); ?>" />
