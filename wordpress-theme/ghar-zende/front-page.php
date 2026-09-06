@@ -292,8 +292,15 @@ $geology_facts = array(
       <div class="absolute inset-[6%] pointer-events-none" style="clip-path:url(#cave-window-b);box-shadow:inset 0 0 24px 10px rgba(0,0,0,0.55)"></div>
     </div>
 
-    <div id="storyShutterStart" class="absolute inset-y-0 start-0 bg-stone-900" style="width:52%;transform:translateX(0%);box-shadow:8px 0 30px rgba(0,0,0,0.6)" aria-hidden="true"></div>
-    <div id="storyShutterEnd" class="absolute inset-y-0 end-0 bg-stone-900" style="width:52%;transform:translateX(0%);box-shadow:-8px 0 30px rgba(0,0,0,0.6)" aria-hidden="true"></div>
+    <!-- Physical left-0/right-0 on purpose, NOT the logical start-0/end-0:
+         the page is dir="rtl", where start/end resolve to right/left — the
+         opposite of what applyStory()'s translateX signs and the shadow
+         offsets below assume (Start = left panel retracting further left,
+         End = right panel retracting further right). Under the logical
+         classes the two shutters swapped sides across the center instead
+         of opening outward, leaving only a sliver visible at full scroll. -->
+    <div id="storyShutterStart" class="absolute inset-y-0 left-0 bg-stone-900" style="width:52%;transform:translateX(0%);box-shadow:8px 0 30px rgba(0,0,0,0.6)" aria-hidden="true"></div>
+    <div id="storyShutterEnd" class="absolute inset-y-0 right-0 bg-stone-900" style="width:52%;transform:translateX(0%);box-shadow:-8px 0 30px rgba(0,0,0,0.6)" aria-hidden="true"></div>
     <div id="storyShards" class="shards" aria-hidden="true"></div>
     <div id="storyBeam" class="story-beam" aria-hidden="true"></div>
     <div id="storyBeamSoft" class="story-beam soft" aria-hidden="true"></div>
