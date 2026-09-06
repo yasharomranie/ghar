@@ -227,6 +227,23 @@ function ghar_zende_parse_jalali_string( $fa_date ) {
 }
 
 /**
+ * Wraps each word in a `<span class="word">`, for the word-by-word
+ * scroll-reveal used on the darkness/water/visit scenes — ported from the
+ * original preview artifact's `.split-words` JS (done here in PHP instead,
+ * at render time, so there's no flash of unsplit text before JS runs).
+ */
+function ghar_zende_split_words( $text ) {
+	$words = preg_split( '/\s+/u', trim( $text ), -1, PREG_SPLIT_NO_EMPTY );
+	$spans = array_map(
+		function ( $w ) {
+			return '<span class="word">' . esc_html( $w ) . '</span>';
+		},
+		$words
+	);
+	return implode( ' ', $spans );
+}
+
+/**
  * URL of a theme-bundled photo under assets/images/ (the 13 real cave
  * photos also sideloaded into the Media Library by the importer).
  */

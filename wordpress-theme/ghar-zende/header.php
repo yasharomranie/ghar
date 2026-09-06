@@ -41,6 +41,12 @@ $ghar_has_hero = ghar_zende_has_hero();
 
     <nav class="hidden items-center gap-8 md:flex" aria-label="پیمایش اصلی">
       <?php ghar_zende_primary_nav( 'desktop' ); ?>
+      <?php if ( is_front_page() ) : ?>
+      <button type="button" id="soundToggle" aria-pressed="true" aria-label="قطع صدای ورود" data-cursor="صدا" class="sound-toggle flex h-9 w-9 items-center justify-center rounded-full border border-[var(--nav-border)]/25 text-[var(--nav-text)]">
+        <svg class="icon-on h-[15px] w-[15px]" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/><path d="M16.3 8.7a5 5 0 0 1 0 6.6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M19 6a9 9 0 0 1 0 12" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.6"/></svg>
+        <svg class="icon-off h-[15px] w-[15px]" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/><path d="M16 9l5 5M21 9l-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <?php endif; ?>
       <button type="button" id="themeToggle" aria-pressed="false" aria-label="فعال‌سازی حالت روشن" class="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--nav-border)]/25 text-[var(--nav-text)] transition-colors hover:border-accent hover:text-accent-soft">
         <svg viewBox="0 0 24 24" class="h-4 w-4" aria-hidden="true" id="themeIconMoon"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <svg viewBox="0 0 24 24" class="h-4 w-4" aria-hidden="true" id="themeIconSun" hidden><path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.36-6.36-1.42 1.42M7.05 16.95l-1.41 1.41m0-12.72 1.41 1.42m9.9 9.9 1.42 1.41M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -48,6 +54,12 @@ $ghar_has_hero = ghar_zende_has_hero();
     </nav>
 
     <div class="flex items-center gap-2 md:hidden">
+      <?php if ( is_front_page() ) : ?>
+      <button type="button" id="soundToggleMobile" aria-pressed="true" aria-label="قطع صدای ورود" class="sound-toggle flex h-9 w-9 items-center justify-center rounded-full border border-[var(--nav-border)]/25 text-[var(--nav-text)]">
+        <svg class="icon-on h-[15px] w-[15px]" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/><path d="M16.3 8.7a5 5 0 0 1 0 6.6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M19 6a9 9 0 0 1 0 12" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.6"/></svg>
+        <svg class="icon-off h-[15px] w-[15px]" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/><path d="M16 9l5 5M21 9l-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <?php endif; ?>
       <button type="button" id="themeToggleMobile" aria-pressed="false" aria-label="فعال‌سازی حالت روشن" class="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--nav-border)]/25 text-[var(--nav-text)] transition-colors hover:border-accent hover:text-accent-soft">
         <svg viewBox="0 0 24 24" class="h-4 w-4" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>

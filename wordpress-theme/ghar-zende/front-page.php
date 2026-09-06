@@ -7,7 +7,15 @@
  * identically). Scroll-scrubbed behaviour lives in assets/js/home.js.
  */
 get_header();
+?>
 
+<div id="scenePulse" aria-hidden="true"></div>
+<div id="introCurtain">
+  <span class="intro-sub">غار زنده</span>
+  <span class="intro-word">جایی که سنگ، آب و <em>زندگی</em> به‌هم می‌رسند</span>
+</div>
+
+<?php
 $species = array(
 	array(
 		'id'          => 'regal-angelfish',
@@ -62,7 +70,7 @@ $geology_facts = array(
 
 <section id="hero" aria-label="ورود به غار" class="relative flex h-[100svh] min-h-[560px] w-full items-center justify-center overflow-hidden">
   <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-    <img alt="نمای تاریک و مرموز از دل یک شکاف صخره‌ای، با نوری بسیار کم‌رنگ در انتهای مسیر" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'hero-entrance.webp' ) ); ?>" />
+    <img alt="نمای تاریک و مرموز از دل یک شکاف صخره‌ای، با نوری بسیار کم‌رنگ در انتهای مسیر" decoding="async" class="scene-photo absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'hero-entrance.webp' ) ); ?>" />
     <div class="absolute inset-0 bg-void/55"></div>
     <div class="absolute inset-0" style="background:radial-gradient(120% 90% at 20% 15%, transparent 0%, var(--color-void) 92%);opacity:0.55"></div>
     <div class="absolute inset-0" style="background:radial-gradient(45% 35% at 50% 50%, var(--color-amber-glow) 0%, transparent 70%);opacity:0.12;mix-blend-mode:screen"></div>
@@ -72,13 +80,13 @@ $geology_facts = array(
   <div class="particle-field absolute inset-0" data-variant="dust" data-count="26" aria-hidden="true"><?php ghar_zende_particles( 'dust', 26 ); ?></div>
 
   <div class="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 px-6 text-center">
-    <p class="font-display text-xs uppercase tracking-[0.4em] text-turquoise-soft">A Living Aquarium Hidden Inside the Earth</p>
-    <h1 class="text-balance font-display text-4xl font-semibold leading-[1.35] text-foam sm:text-5xl md:text-6xl">جایی که سنگ، آب و زندگی<br />به هم می‌رسند</h1>
-    <p class="text-balance text-base text-foam-dim sm:text-lg">سفری به قلب یک غار زنده</p>
-    <a href="#darkness" data-cursor="کشف" class="group relative mt-4 inline-flex items-center gap-3 rounded-full border border-foam/25 px-7 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft">کشف غار</a>
+    <p class="hero-eyebrow font-display text-xs uppercase tracking-[0.4em] text-turquoise-soft">A Living Aquarium Hidden Inside the Earth</p>
+    <h1 class="text-balance font-display text-4xl font-semibold leading-[1.35] text-foam sm:text-5xl md:text-6xl"><span class="line">جایی که سنگ، آب و زندگی</span><br /><span class="line">به هم می‌رسند</span></h1>
+    <p class="text-balance text-base text-foam-dim sm:text-lg hero-lede">سفری به قلب یک غار زنده</p>
+    <a href="#darkness" data-cursor="کشف" data-magnetic class="hero-cta group relative mt-4 inline-flex items-center gap-3 rounded-full border border-foam/25 px-7 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft">کشف غار</a>
   </div>
 
-  <a href="#darkness" class="absolute inset-x-0 bottom-8 z-10 mx-auto flex w-fit flex-col items-center gap-2 text-foam-faint">
+  <a href="#darkness" class="scroll-hint absolute inset-x-0 bottom-8 z-10 mx-auto flex w-fit flex-col items-center gap-2 text-foam-faint">
     <span class="font-display text-[10px] uppercase tracking-[0.35em]">SCROLL TO EXPLORE</span>
     <span class="scroll-chevron h-8 w-px bg-gradient-to-b from-foam-faint to-transparent"></span>
   </a>
@@ -92,14 +100,20 @@ $geology_facts = array(
   <div class="parallax-layer absolute inset-x-0 bottom-0 h-[55%]" style="background:linear-gradient(0deg, var(--color-stone-900) 0%, transparent 100%);clip-path:polygon(0% 100%, 0% 30%, 12% 45%, 24% 20%, 38% 50%, 52% 15%, 68% 42%, 82% 10%, 100% 38%, 100% 100%)" aria-hidden="true"></div>
   <div class="parallax-layer absolute inset-x-0 top-0 h-[40%]" style="background:linear-gradient(180deg, var(--color-void) 0%, transparent 100%);clip-path:polygon(0% 0%, 100% 0%, 100% 55%, 84% 30%, 70% 60%, 55% 25%, 40% 58%, 26% 22%, 10% 50%, 0% 35%)" aria-hidden="true"></div>
 
-  <div class="js-reveal relative z-10 px-6 text-center">
-    <p class="text-balance font-display text-2xl leading-relaxed text-foam sm:text-3xl">همه‌چیز از دل سنگ آغاز می‌شود.</p>
+  <!-- torch/flashlight sweep, painted from the same photo, masked to a small
+       circle that follows the cursor (assets/js/home.js sets --mx/--my) -->
+  <div id="torchLayer" class="torch-layer" aria-hidden="true">
+    <img alt="" src="<?php echo esc_url( ghar_zende_img( 'darkness-threshold.webp' ) ); ?>" />
+  </div>
+
+  <div class="relative z-10 px-6 text-center">
+    <p class="text-balance font-display text-2xl leading-relaxed text-foam sm:text-3xl"><?php echo ghar_zende_split_words( 'همه‌چیز از دل سنگ آغاز می‌شود.' ); ?></p>
   </div>
 </section>
 
 <section id="water" aria-label="نخستین آب" class="relative flex h-[90vh] min-h-[520px] w-full items-center justify-center overflow-hidden">
   <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-    <img alt="ردیفی از آکواریوم‌های نورانی در دل صخره، دیده‌شده از فاصله‌ای نزدیک‌تر" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'water-corridor.webp' ) ); ?>" />
+    <img alt="ردیفی از آکواریوم‌های نورانی در دل صخره، دیده‌شده از فاصله‌ای نزدیک‌تر" loading="lazy" decoding="async" class="scene-photo absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'water-corridor.webp' ) ); ?>" />
     <div class="absolute inset-0 bg-void/55"></div>
     <div class="absolute inset-0" style="background:radial-gradient(120% 90% at 20% 15%, transparent 0%, var(--color-void) 92%);opacity:0.55"></div>
     <div class="absolute inset-0" style="background:radial-gradient(45% 35% at 110% 40%, var(--color-amber-glow) 0%, transparent 70%);opacity:0.24;mix-blend-mode:screen"></div>
@@ -110,8 +124,8 @@ $geology_facts = array(
   <div class="particle-field absolute inset-0" data-variant="bubble" data-count="18" aria-hidden="true"><?php ghar_zende_particles( 'bubble', 18 ); ?></div>
   <div class="particle-field absolute inset-0" data-variant="dust" data-count="16" aria-hidden="true"><?php ghar_zende_particles( 'dust', 16 ); ?></div>
 
-  <div class="js-reveal relative z-10 max-w-xl px-6 text-center">
-    <p class="text-balance font-display text-2xl leading-relaxed text-foam sm:text-3xl">اما در دل این تاریکی،<br />زندگی جریان دارد.</p>
+  <div class="relative z-10 max-w-xl px-6 text-center">
+    <p class="text-balance font-display text-2xl leading-relaxed text-foam sm:text-3xl"><?php echo ghar_zende_split_words( 'اما در دل این تاریکی،' ); ?><br /><?php echo ghar_zende_split_words( 'زندگی جریان دارد.' ); ?></p>
   </div>
 </section>
 
@@ -126,7 +140,7 @@ $geology_facts = array(
       </clipPath>
     </defs>
   </svg>
-  <div class="sticky top-0 flex h-[100svh] w-full items-center justify-center overflow-hidden">
+  <div id="aquariumSticky" class="sticky top-0 flex h-[100svh] w-full items-center justify-center overflow-hidden">
     <div id="aquariumWindow" class="relative aspect-[4/3] w-[min(88vw,720px)]">
       <div class="absolute inset-0" style="background:radial-gradient(120% 100% at 30% 20%, var(--color-stone-700), var(--color-stone-900) 70%);box-shadow:inset 0 0 60px rgba(0,0,0,0.6)"></div>
       <div class="absolute inset-[6%] overflow-hidden" style="clip-path:url(#cave-window-a)">
@@ -135,7 +149,9 @@ $geology_facts = array(
         </div>
         <div class="js-aq-pulse absolute inset-0" style="opacity:0;background:radial-gradient(45% 60% at 65% 10%, rgba(79,216,196,0.5), transparent 70%);mix-blend-mode:screen"></div>
         <div class="js-aq-bubbles particle-field absolute inset-0" data-variant="bubble" data-count="10" style="opacity:0" aria-hidden="true"><?php ghar_zende_particles( 'bubble', 10 ); ?></div>
+        <div id="aqPlankton" class="aq-plankton" aria-hidden="true"></div>
         <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(115deg, rgba(244,239,227,0.08) 0%, transparent 30%, transparent 70%, rgba(244,239,227,0.05) 100%)"></div>
+        <div id="aqSweep" class="aq-sweep" aria-hidden="true"></div>
       </div>
       <div class="absolute inset-[6%] pointer-events-none" style="clip-path:url(#cave-window-a);box-shadow:inset 0 0 24px 10px rgba(0,0,0,0.55)"></div>
     </div>
@@ -176,7 +192,7 @@ $geology_facts = array(
 
 <section id="species" aria-label="گونه‌های آبزی" class="relative w-full overflow-hidden bg-void py-28">
   <div class="absolute inset-0 overflow-hidden opacity-50" aria-hidden="true">
-    <img alt="نمای نزدیک یک آکواریوم درون‌صخره‌ای با گیاهان آبزی و چند ماهی" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'aquarium-window-plants.webp' ) ); ?>" />
+    <img alt="نمای نزدیک یک آکواریوم درون‌صخره‌ای با گیاهان آبزی و چند ماهی" loading="lazy" decoding="async" class="scene-photo absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'aquarium-window-plants.webp' ) ); ?>" />
     <div class="absolute inset-0 bg-void/55"></div>
     <div class="absolute inset-0" style="background:radial-gradient(120% 90% at 20% 15%, transparent 0%, var(--color-void) 92%);opacity:0.55"></div>
     <div class="noise-overlay"></div>
@@ -188,9 +204,9 @@ $geology_facts = array(
       <h2 class="mt-4 text-balance font-display text-3xl font-semibold text-foam sm:text-4xl">ساکنان این تاریکی</h2>
     </div>
 
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+    <div class="species-grid grid grid-cols-1 gap-6 sm:grid-cols-2">
       <?php foreach ( $species as $s ) : ?>
-      <div class="js-reveal" data-delay="0.05">
+      <div>
         <button type="button" data-cursor="مشاهده" class="species-card group relative flex w-full items-center gap-6 overflow-hidden rounded-2xl border border-foam/10 p-6 text-start transition-colors duration-500 bg-stone-900/40">
           <div class="species-glow absolute inset-0 -z-10 transition-opacity duration-500" style="background:radial-gradient(60% 80% at 15% 50%, var(--color-ocean-700), transparent 70%);opacity:0" aria-hidden="true"></div>
           <div class="species-photo w-24 shrink-0 transition-transform duration-700 ease-out scale-100">
@@ -260,7 +276,7 @@ $geology_facts = array(
 </section>
 
 <section id="story" aria-label="سنگ، آب، زندگی" class="relative h-[300vh] w-full bg-void">
-  <div class="sticky top-0 flex h-[100svh] w-full items-center justify-center overflow-hidden">
+  <div id="storyStage" class="sticky top-0 flex h-[100svh] w-full items-center justify-center overflow-hidden">
     <div id="storyWindow" class="relative aspect-[4/3] w-[min(90vw,760px)]">
       <div class="absolute inset-0" style="background:radial-gradient(120% 100% at 30% 20%, var(--color-stone-700), var(--color-stone-900) 70%);box-shadow:inset 0 0 60px rgba(0,0,0,0.6)"></div>
       <div class="absolute inset-[6%] overflow-hidden" style="clip-path:url(#cave-window-b)">
@@ -275,6 +291,9 @@ $geology_facts = array(
 
     <div id="storyShutterStart" class="absolute inset-y-0 start-0 bg-stone-900" style="width:52%;transform:translateX(0%);box-shadow:8px 0 30px rgba(0,0,0,0.6)" aria-hidden="true"></div>
     <div id="storyShutterEnd" class="absolute inset-y-0 end-0 bg-stone-900" style="width:52%;transform:translateX(0%);box-shadow:-8px 0 30px rgba(0,0,0,0.6)" aria-hidden="true"></div>
+    <div id="storyShards" class="shards" aria-hidden="true"></div>
+    <div id="storyBeam" class="story-beam" aria-hidden="true"></div>
+    <div id="storyBeamSoft" class="story-beam soft" aria-hidden="true"></div>
 
     <div class="pointer-events-none absolute inset-x-0 top-14 z-10 flex flex-col items-center gap-2 text-center">
       <span id="storyChapterLabel" class="font-display text-[11px] uppercase tracking-[0.4em] text-turquoise-soft">THE CAVE · غار</span>
@@ -285,7 +304,7 @@ $geology_facts = array(
 
 <section id="visit" aria-label="بازدید از غار" class="relative flex min-h-[90vh] w-full items-center justify-center overflow-hidden py-24">
   <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-    <img alt="راهرو غار با ترکیبی از نور گرم و آبی، در انتهای مسیر بازدید" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'corridor-warm-glow.webp' ) ); ?>" />
+    <img alt="راهرو غار با ترکیبی از نور گرم و آبی، در انتهای مسیر بازدید" loading="lazy" decoding="async" class="scene-photo absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'corridor-warm-glow.webp' ) ); ?>" />
     <div class="absolute inset-0 bg-void/55"></div>
     <div class="absolute inset-0" style="background:radial-gradient(120% 90% at 20% 15%, transparent 0%, var(--color-void) 92%);opacity:0.55"></div>
     <div class="absolute inset-0" style="background:radial-gradient(45% 35% at 50% -10%, var(--color-amber-glow) 0%, transparent 70%);opacity:0.5;mix-blend-mode:screen"></div>
@@ -295,13 +314,13 @@ $geology_facts = array(
   <div class="particle-field absolute inset-0" data-variant="dust" data-count="20" aria-hidden="true"><?php ghar_zende_particles( 'dust', 20 ); ?></div>
 
   <div class="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-8 px-6 text-center">
-    <div class="js-reveal">
-      <h2 class="text-balance font-display text-3xl font-semibold leading-relaxed text-foam sm:text-4xl">حالا نوبت توست که این دنیا را از نزدیک ببینی.</h2>
+    <div>
+      <h2 class="text-balance font-display text-3xl font-semibold leading-relaxed text-foam sm:text-4xl"><?php echo ghar_zende_split_words( 'حالا نوبت توست که این دنیا را از نزدیک ببینی.' ); ?></h2>
     </div>
-    <div class="js-reveal flex flex-wrap items-center justify-center gap-4" data-delay="0.1">
-      <a href="#" data-cursor="بازدید" class="rounded-full bg-turquoise px-8 py-3 text-sm font-medium text-void transition-transform hover:scale-[1.03]">برنامه بازدید</a>
-      <a href="#" class="rounded-full border border-foam/25 px-8 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft">مسیریابی</a>
-      <a href="#" class="rounded-full border border-foam/25 px-8 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft">تماس با ما</a>
+    <div class="cta-row flex flex-wrap items-center justify-center gap-4">
+      <a href="#" data-cursor="بازدید" data-magnetic class="rounded-full bg-turquoise px-8 py-3 text-sm font-medium text-void transition-transform hover:scale-[1.03]">برنامه بازدید</a>
+      <a href="#" data-magnetic class="rounded-full border border-foam/25 px-8 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft">مسیریابی</a>
+      <a href="#" data-magnetic class="rounded-full border border-foam/25 px-8 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft">تماس با ما</a>
     </div>
   </div>
 
