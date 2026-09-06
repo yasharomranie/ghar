@@ -85,6 +85,19 @@ function ghar_zende_assets() {
 		wp_enqueue_script( 'gsap', GHAR_ZENDE_URI . '/assets/lib/gsap.min.js', array(), ghar_zende_asset_ver( '/assets/lib/gsap.min.js' ), true );
 		wp_enqueue_script( 'gsap-scrolltrigger', GHAR_ZENDE_URI . '/assets/lib/ScrollTrigger.min.js', array( 'gsap' ), ghar_zende_asset_ver( '/assets/lib/ScrollTrigger.min.js' ), true );
 		wp_enqueue_script( 'ghar-zende-home', GHAR_ZENDE_URI . '/assets/js/home.js', array( 'lenis', 'gsap', 'gsap-scrolltrigger' ), ghar_zende_asset_ver( '/assets/js/home.js' ), true );
+
+		// Content managed from the "صفحه اصلی" admin panel (inc/homepage-panel.php)
+		// that home.js can't get any other way, because it isn't printed
+		// into the page markup: the aquarium's scroll-driven phase labels
+		// and the story scene's chapter text/titles.
+		wp_localize_script(
+			'ghar-zende-home',
+			'GHAR_HOME_DATA',
+			array(
+				'aquariumPhases' => ghar_zende_home_get( 'aquarium_phases' ),
+				'storyChapters'  => ghar_zende_home_get( 'story_chapters' ),
+			)
+		);
 	}
 
 	if ( is_post_type_archive( 'cave_article' ) || is_page_template( 'archive-cave_article.php' ) ) {
@@ -112,6 +125,7 @@ require_once GHAR_ZENDE_DIR . '/inc/cpt-articles.php';
 require_once GHAR_ZENDE_DIR . '/inc/helpers.php';
 require_once GHAR_ZENDE_DIR . '/inc/importer.php';
 require_once GHAR_ZENDE_DIR . '/inc/nav-walker.php';
+require_once GHAR_ZENDE_DIR . '/inc/homepage-panel.php';
 
 /**
  * Fallback primary menu — used until an admin assigns a real one under

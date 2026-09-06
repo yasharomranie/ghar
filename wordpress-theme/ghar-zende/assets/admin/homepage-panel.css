@@ -1,0 +1,201 @@
+/* Admin panel: "صفحه اصلی" — مدیریت محتوای front-page.php. */
+
+.ghz-admin {
+	max-width: 980px;
+}
+
+.ghz-admin h1 {
+	margin-bottom: 4px;
+}
+
+.ghz-tabs-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin: 20px 0;
+	border-bottom: 1px solid #dcdcde;
+	padding-bottom: 12px;
+}
+
+.ghz-tab-btn {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 999px;
+	padding: 6px 16px;
+	font-size: 13px;
+	cursor: pointer;
+	color: #1d2327;
+	transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.ghz-tab-btn:hover {
+	border-color: #2271b1;
+}
+
+.ghz-tab-btn.is-active {
+	background: #2271b1;
+	border-color: #2271b1;
+	color: #fff;
+}
+
+.ghz-tab-panel {
+	display: none;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	padding: 24px 28px;
+	margin-bottom: 20px;
+}
+
+.ghz-tab-panel.is-active {
+	display: block;
+}
+
+.ghz-tab-panel h2 {
+	margin-top: 0;
+}
+
+.ghz-tab-panel h3 {
+	margin-top: 28px;
+	padding-top: 20px;
+	border-top: 1px dashed #dcdcde;
+}
+
+.ghz-field {
+	margin-bottom: 18px;
+}
+
+.ghz-field label {
+	display: block;
+	font-weight: 600;
+	margin-bottom: 6px;
+}
+
+.ghz-field input[type="text"],
+.ghz-field textarea {
+	width: 100%;
+	max-width: 560px;
+}
+
+.ghz-grid-2 {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0 20px;
+}
+
+.ghz-grid-3 {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 0 20px;
+}
+
+@media (max-width: 782px) {
+	.ghz-grid-2,
+	.ghz-grid-3 {
+		grid-template-columns: 1fr;
+	}
+}
+
+.ghz-grid-2 p,
+.ghz-grid-3 p {
+	margin: 0 0 12px;
+}
+
+.ghz-grid-2 label,
+.ghz-grid-3 label {
+	display: block;
+	font-weight: 600;
+	margin-bottom: 4px;
+}
+
+.ghz-grid-2 input,
+.ghz-grid-3 input {
+	width: 100%;
+}
+
+.ghz-checkbox {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-weight: 500;
+	margin: 4px 0 0;
+}
+
+.ghz-color {
+	font-family: monospace;
+	direction: ltr;
+	text-align: left;
+}
+
+/* Image field */
+.ghz-image-field {
+	border: 1px dashed #c3c4c7;
+	border-radius: 6px;
+	padding: 14px;
+	max-width: 320px;
+}
+
+.ghz-image-field.has-image {
+	border-style: solid;
+	border-color: #2271b1;
+}
+
+.ghz-image-preview {
+	min-height: 40px;
+	margin-bottom: 10px;
+}
+
+.ghz-image-preview img {
+	max-width: 100%;
+	max-height: 160px;
+	display: block;
+	border-radius: 4px;
+	background: #f0f0f1;
+}
+
+.ghz-image-field .description {
+	margin: 8px 0 0;
+	font-size: 12px;
+	color: #646970;
+}
+
+/* Repeaters */
+.ghz-repeater-rows {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin-bottom: 14px;
+}
+
+.ghz-repeater-row {
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	padding: 16px 18px;
+	position: relative;
+}
+
+.ghz-repeater-remove {
+	color: #b32d2e;
+	margin-top: 10px;
+	display: inline-block;
+}
+
+.ghz-repeater-remove:hover {
+	color: #d63638;
+}
+
+.ghz-repeater-template {
+	display: none;
+}
+
+.ghz-repeater-add {
+	margin-top: 4px;
+}
+
+.submit {
+	position: sticky;
+	bottom: 0;
+	background: linear-gradient(180deg, rgba(240,240,241,0) 0%, #f0f0f1 40%);
+	padding-top: 20px;
+}

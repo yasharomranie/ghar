@@ -389,13 +389,21 @@
    * Scene 04 — aquarium reveal ("stone -> shadow -> light -> color ->
    * life"), shared photo-focus look with Scene 08 (setAquariumWindow).
    * ----------------------------------------------------------- */
-  var phases = [
-    { at: 0, label: "سنگ" },
-    { at: 0.25, label: "سایه" },
-    { at: 0.45, label: "نور" },
-    { at: 0.7, label: "رنگ" },
-    { at: 0.9, label: "زندگی" },
-  ];
+  // Editable from the "صفحه اصلی" admin panel (GHAR_HOME_DATA, localized
+  // in functions.php) — this hardcoded list is only the fallback for
+  // contexts where that data isn't printed (e.g. a standalone test page).
+  var phases =
+    window.GHAR_HOME_DATA && window.GHAR_HOME_DATA.aquariumPhases && window.GHAR_HOME_DATA.aquariumPhases.length
+      ? window.GHAR_HOME_DATA.aquariumPhases.map(function (p) {
+          return { at: parseFloat(p.at), label: p.label };
+        })
+      : [
+          { at: 0, label: "سنگ" },
+          { at: 0.25, label: "سایه" },
+          { at: 0.45, label: "نور" },
+          { at: 0.7, label: "رنگ" },
+          { at: 0.9, label: "زندگی" },
+        ];
 
   function phaseLabel(reveal) {
     var label = phases[0].label;
@@ -550,11 +558,15 @@
    * crack-shard burst as they first start moving), aquarium behind
    * them reveals, chapter text crossfades with a back-ease pop.
    * ----------------------------------------------------------- */
-  var storyChapters = [
-    { title: "THE CAVE", persian: "غار", text: "میلیون‌ها سال در سکوت شکل گرفته." },
-    { title: "THE WATER", persian: "آب", text: "آب، مسیر تازه‌ای برای زندگی ساخته است." },
-    { title: "THE LIFE", persian: "زندگی", text: "حالا این تاریکی، خانه‌ی موجوداتی زنده است." },
-  ];
+  // Same admin-panel override pattern as `phases` above.
+  var storyChapters =
+    window.GHAR_HOME_DATA && window.GHAR_HOME_DATA.storyChapters && window.GHAR_HOME_DATA.storyChapters.length
+      ? window.GHAR_HOME_DATA.storyChapters
+      : [
+          { title: "THE CAVE", persian: "غار", text: "میلیون‌ها سال در سکوت شکل گرفته." },
+          { title: "THE WATER", persian: "آب", text: "آب، مسیر تازه‌ای برای زندگی ساخته است." },
+          { title: "THE LIFE", persian: "زندگی", text: "حالا این تاریکی، خانه‌ی موجوداتی زنده است." },
+        ];
 
   var storySection = document.getElementById("story");
   var storyStage = document.getElementById("storyStage");

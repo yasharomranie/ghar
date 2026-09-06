@@ -16,61 +16,17 @@ get_header();
 </div>
 
 <?php
-$species = array(
-	array(
-		'id'          => 'regal-angelfish',
-		'name'        => 'فرشته‌ماهی سلطنتی',
-		'sci'         => 'Pygoplites diacanthus',
-		'habitat'     => 'شکاف‌های صخره‌ای کم‌نور',
-		'trait'       => 'رنگ‌های نواری که در نور کم می‌درخشند',
-		'description' => 'در تاریک‌روشنای غار، نوارهای آبی و طلایی‌اش تنها وقتی نور به آن می‌تابد آشکار می‌شوند.',
-		'photo'       => 'species-regal-angelfish.webp',
-	),
-	array(
-		'id'          => 'powder-blue-tang',
-		'name'        => 'تانگ آبی پودری',
-		'sci'         => 'Acanthurus leucosternon',
-		'habitat'     => 'جریان‌های آرام نزدیک سطح آب',
-		'trait'       => 'حرکت گروهی و هماهنگ',
-		'description' => 'این‌ها معمولاً به‌صورت دسته‌جمعی شنا می‌کنند؛ حرکتشان مثل موجی آبی در دل تاریکی است.',
-		'color'       => '#3f8fd1',
-		'accent'      => '#101820',
-	),
-	array(
-		'id'          => 'cave-cichlid',
-		'name'        => 'سیکلید غاری',
-		'sci'         => 'Amphilophus cf. citrinellus',
-		'habitat'     => 'بستر سنگی و ریشه‌های فرورفته در آب',
-		'trait'       => 'سازگاری کامل با نور بسیار کم',
-		'description' => 'نسل‌هایی از این گونه در همین محیط کم‌نور رشد کرده‌اند و کمتر از هر ماهی دیگری به نور نیاز دارند.',
-		'color'       => '#c97a4a',
-		'accent'      => '#5c3a21',
-	),
-	array(
-		'id'          => 'lemon-goby',
-		'name'        => 'گاوماهی لیمویی',
-		'sci'         => 'Gobiodon citrinus',
-		'habitat'     => 'لابه‌لای گیاهان آبزی و سنگ‌های مرجانی',
-		'trait'       => 'رنگ زرد درخشان، برخلاف محیط تیره اطراف',
-		'description' => 'تنها لکه‌ی روشن این صحنه؛ انگار طبیعت خواسته یک نقطه‌ی امید در دل تاریکی بگذارد.',
-		'color'       => '#e8c93a',
-		'accent'      => '#8a6c14',
-	),
-);
-
-$geology_facts = array(
-	array( 'value' => '۱۸', 'unit' => 'متر', 'label' => 'ارتفاع غار', 'note' => 'سقفی که هزاران سال بی‌صدا شکل گرفته است.' ),
-	array( 'value' => '۴۲۰', 'unit' => 'متر', 'label' => 'عمق مسیر', 'note' => 'مسیری که قدم‌به‌قدم به دل زمین نزدیک‌تر می‌شود.' ),
-	array( 'value' => 'دو میلیون', 'unit' => 'سال', 'label' => 'قدمت تخمینی', 'note' => 'پیش از هر جاده و هر شهر، این سنگ‌ها اینجا بودند.' ),
-	array( 'value' => '۱۹', 'unit' => 'درجه', 'label' => 'دمای آب', 'note' => 'ثابت در تمام فصل‌ها؛ زیستگاهی بی‌نوسان.' ),
-	array( 'value' => '۲۷', 'unit' => 'گونه', 'label' => 'گونه‌های آبزی', 'note' => 'هرکدام با سازگاری خاص خود به این محیط.' ),
-	array( 'value' => '۱۴', 'unit' => '', 'label' => 'آکواریوم‌های درون‌صخره‌ای', 'note' => 'هرکدام در دل سنگ، نه در برابر آن.' ),
-);
+// All text/links/images below come from the "صفحه اصلی" admin panel
+// (inc/homepage-panel.php), falling back to its built-in defaults —
+// which are exactly what used to be hardcoded here — until an admin
+// edits something there.
+$species       = ghar_zende_home_get( 'species' );
+$geology_facts = ghar_zende_home_get( 'geology_facts' );
 ?>
 
 <section id="hero" aria-label="ورود به غار" class="relative flex h-[100svh] min-h-[560px] w-full items-center justify-center overflow-hidden">
   <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-    <img alt="نمای تاریک و مرموز از دل یک شکاف صخره‌ای، با نوری بسیار کم‌رنگ در انتهای مسیر" decoding="async" class="scene-photo absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'hero-entrance.webp' ) ); ?>" />
+    <img alt="نمای تاریک و مرموز از دل یک شکاف صخره‌ای، با نوری بسیار کم‌رنگ در انتهای مسیر" decoding="async" class="scene-photo absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_home_image( 'hero_image', 'hero-entrance.webp' ) ); ?>" />
     <div class="absolute inset-0 bg-void/55"></div>
     <div class="absolute inset-0" style="background:radial-gradient(120% 90% at 20% 15%, transparent 0%, var(--color-void) 92%);opacity:0.55"></div>
     <div class="absolute inset-0" style="background:radial-gradient(45% 35% at 50% 50%, var(--color-amber-glow) 0%, transparent 70%);opacity:0.12;mix-blend-mode:screen"></div>
@@ -80,10 +36,10 @@ $geology_facts = array(
   <div class="particle-field absolute inset-0" data-variant="dust" data-count="26" aria-hidden="true"><?php ghar_zende_particles( 'dust', 26 ); ?></div>
 
   <div class="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 px-6 text-center">
-    <p class="hero-eyebrow font-display text-xs uppercase tracking-[0.4em] text-turquoise-soft">A Living Aquarium Hidden Inside the Earth</p>
-    <h1 class="text-balance font-display text-4xl font-semibold leading-[1.35] text-foam sm:text-5xl md:text-6xl"><span class="line">جایی که سنگ، آب و زندگی</span><br /><span class="line">به هم می‌رسند</span></h1>
-    <p class="text-balance text-base text-foam-dim sm:text-lg hero-lede">سفری به قلب یک غار زنده</p>
-    <a href="#darkness" data-cursor="کشف" data-magnetic class="hero-cta group relative mt-4 inline-flex items-center gap-3 rounded-full border border-foam/25 px-7 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft">کشف غار</a>
+    <p class="hero-eyebrow font-display text-xs uppercase tracking-[0.4em] text-turquoise-soft"><?php echo esc_html( ghar_zende_home_get( 'hero_eyebrow' ) ); ?></p>
+    <h1 class="text-balance font-display text-4xl font-semibold leading-[1.35] text-foam sm:text-5xl md:text-6xl"><span class="line"><?php echo esc_html( ghar_zende_home_get( 'hero_title_line1' ) ); ?></span><br /><span class="line"><?php echo esc_html( ghar_zende_home_get( 'hero_title_line2' ) ); ?></span></h1>
+    <p class="text-balance text-base text-foam-dim sm:text-lg hero-lede"><?php echo esc_html( ghar_zende_home_get( 'hero_lede' ) ); ?></p>
+    <a href="<?php echo esc_url( ghar_zende_home_get( 'hero_cta_href' ) ); ?>" data-cursor="کشف" data-magnetic class="hero-cta group relative mt-4 inline-flex items-center gap-3 rounded-full border border-foam/25 px-7 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft"><?php echo esc_html( ghar_zende_home_get( 'hero_cta_text' ) ); ?></a>
   </div>
 
   <a href="#darkness" class="scroll-hint absolute inset-x-0 bottom-8 z-10 mx-auto flex w-fit flex-col items-center gap-2 text-foam-faint">
@@ -94,7 +50,7 @@ $geology_facts = array(
 
 <section id="darkness" aria-label="ورود به تاریکی" class="relative flex h-[130vh] w-full items-center justify-center overflow-hidden bg-void">
   <div class="parallax-layer absolute inset-0 scale-110" aria-hidden="true">
-    <img alt="نمای عبور از میان صخره‌ها به سمت ردیفی از آکواریوم‌های نورانی در دوردست" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'darkness-threshold.webp' ) ); ?>" />
+    <img alt="نمای عبور از میان صخره‌ها به سمت ردیفی از آکواریوم‌های نورانی در دوردست" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_home_image( 'darkness_image', 'darkness-threshold.webp' ) ); ?>" />
     <div class="absolute inset-0 bg-void/60"></div>
   </div>
   <div class="parallax-layer absolute inset-x-0 bottom-0 h-[55%]" style="background:linear-gradient(0deg, var(--color-stone-900) 0%, transparent 100%);clip-path:polygon(0% 100%, 0% 30%, 12% 45%, 24% 20%, 38% 50%, 52% 15%, 68% 42%, 82% 10%, 100% 38%, 100% 100%)" aria-hidden="true"></div>
@@ -103,17 +59,17 @@ $geology_facts = array(
   <!-- torch/flashlight sweep, painted from the same photo, masked to a small
        circle that follows the cursor (assets/js/home.js sets --mx/--my) -->
   <div id="torchLayer" class="torch-layer" aria-hidden="true">
-    <img alt="" src="<?php echo esc_url( ghar_zende_img( 'darkness-threshold.webp' ) ); ?>" />
+    <img alt="" src="<?php echo esc_url( ghar_zende_home_image( 'darkness_image', 'darkness-threshold.webp' ) ); ?>" />
   </div>
 
   <div class="relative z-10 px-6 text-center">
-    <p class="text-balance font-display text-2xl leading-relaxed text-foam sm:text-3xl"><?php echo ghar_zende_split_words( 'همه‌چیز از دل سنگ آغاز می‌شود.' ); ?></p>
+    <p class="text-balance font-display text-2xl leading-relaxed text-foam sm:text-3xl"><?php echo ghar_zende_split_words( ghar_zende_home_get( 'darkness_text' ) ); ?></p>
   </div>
 </section>
 
 <section id="water" aria-label="نخستین آب" class="relative flex h-[90vh] min-h-[520px] w-full items-center justify-center overflow-hidden">
   <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-    <img alt="ردیفی از آکواریوم‌های نورانی در دل صخره، دیده‌شده از فاصله‌ای نزدیک‌تر" loading="lazy" decoding="async" class="scene-photo absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'water-corridor.webp' ) ); ?>" />
+    <img alt="ردیفی از آکواریوم‌های نورانی در دل صخره، دیده‌شده از فاصله‌ای نزدیک‌تر" loading="lazy" decoding="async" class="scene-photo absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_home_image( 'water_image', 'water-corridor.webp' ) ); ?>" />
     <div class="absolute inset-0 bg-void/55"></div>
     <div class="absolute inset-0" style="background:radial-gradient(120% 90% at 20% 15%, transparent 0%, var(--color-void) 92%);opacity:0.55"></div>
     <div class="absolute inset-0" style="background:radial-gradient(45% 35% at 110% 40%, var(--color-amber-glow) 0%, transparent 70%);opacity:0.24;mix-blend-mode:screen"></div>
@@ -125,7 +81,7 @@ $geology_facts = array(
   <div class="particle-field absolute inset-0" data-variant="dust" data-count="16" aria-hidden="true"><?php ghar_zende_particles( 'dust', 16 ); ?></div>
 
   <div class="relative z-10 max-w-xl px-6 text-center">
-    <p class="text-balance font-display text-2xl leading-relaxed text-foam sm:text-3xl"><?php echo ghar_zende_split_words( 'اما در دل این تاریکی،' ); ?><br /><?php echo ghar_zende_split_words( 'زندگی جریان دارد.' ); ?></p>
+    <p class="text-balance font-display text-2xl leading-relaxed text-foam sm:text-3xl"><?php echo ghar_zende_split_words( ghar_zende_home_get( 'water_text1' ) ); ?><br /><?php echo ghar_zende_split_words( ghar_zende_home_get( 'water_text2' ) ); ?></p>
   </div>
 </section>
 
@@ -143,12 +99,12 @@ $geology_facts = array(
   <div id="aquariumSticky" class="sticky top-0 flex h-[100svh] w-full items-center justify-center overflow-hidden bg-void">
     <div id="aquariumWindow" class="relative aspect-[4/3] w-[min(88vw,720px)]">
       <div class="absolute inset-0 overflow-hidden">
-        <img alt="سنگ خام دیواره‌ی غار، اطراف پنجره‌ی آکواریوم" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'corridor-panorama-dark.webp' ) ); ?>" />
+        <img alt="سنگ خام دیواره‌ی غار، اطراف پنجره‌ی آکواریوم" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_home_image( 'aquarium_frame_image', 'corridor-panorama-dark.webp' ) ); ?>" />
         <div class="absolute inset-0" style="background:radial-gradient(120% 100% at 30% 20%, rgba(26,23,19,0.35) 0%, rgba(5,7,8,0.88) 75%);box-shadow:inset 0 0 60px rgba(0,0,0,0.6)"></div>
       </div>
       <div class="absolute inset-[6%] overflow-hidden" style="clip-path:url(#cave-window-a)">
         <div class="js-aq-photo absolute inset-0 scale-110 transition-[filter] duration-150" style="filter:brightness(0.1) saturate(0.15) blur(16px)">
-          <img alt="آکواریومی درون‌صخره‌ای با نور آبی، گیاهان آبزی و چند ماهی رنگارنگ" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'aquarium-window-clear.webp' ) ); ?>" />
+          <img alt="آکواریومی درون‌صخره‌ای با نور آبی، گیاهان آبزی و چند ماهی رنگارنگ" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_home_image( 'aquarium_clear_image', 'aquarium-window-clear.webp' ) ); ?>" />
         </div>
         <div class="js-aq-pulse absolute inset-0" style="opacity:0;background:radial-gradient(45% 60% at 65% 10%, rgba(79,216,196,0.5), transparent 70%);mix-blend-mode:screen"></div>
         <div class="js-aq-bubbles particle-field absolute inset-0" data-variant="bubble" data-count="10" style="opacity:0" aria-hidden="true"><?php ghar_zende_particles( 'bubble', 10 ); ?></div>
@@ -160,27 +116,23 @@ $geology_facts = array(
     </div>
 
     <div class="pointer-events-none absolute inset-x-0 bottom-10 z-10 flex flex-col items-center gap-3 px-6 text-center">
-      <span id="aqPhase" class="font-display text-[11px] uppercase tracking-[0.4em] text-turquoise-soft">سنگ</span>
-      <p id="aqCaption" class="text-balance font-display text-xl text-foam transition-opacity duration-500 sm:text-2xl" style="opacity:0">آکواریومی که تصویرش را با اسکرول تو کامل می‌کند.</p>
+      <?php $aquarium_phases = ghar_zende_home_get( 'aquarium_phases' ); ?>
+      <span id="aqPhase" class="font-display text-[11px] uppercase tracking-[0.4em] text-turquoise-soft"><?php echo esc_html( ! empty( $aquarium_phases[0]['label'] ) ? $aquarium_phases[0]['label'] : 'سنگ' ); ?></span>
+      <p id="aqCaption" class="text-balance font-display text-xl text-foam transition-opacity duration-500 sm:text-2xl" style="opacity:0"><?php echo esc_html( ghar_zende_home_get( 'aquarium_caption' ) ); ?></p>
     </div>
   </div>
 </section>
 
 <section id="life" aria-label="دنیای زنده" class="relative h-[280vh] w-full bg-void">
   <div class="sticky top-0 flex h-[100svh] w-full items-center justify-center overflow-hidden">
-    <img alt="راهروی غار با چند آکواریوم نورانی در دل صخره، پر از ماهی‌های رنگارنگ" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'corridor-panorama-bright.webp' ) ); ?>" />
+    <img alt="راهروی غار با چند آکواریوم نورانی در دل صخره، پر از ماهی‌های رنگارنگ" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_home_image( 'life_image', 'corridor-panorama-bright.webp' ) ); ?>" />
     <div class="absolute inset-0 bg-void/45"></div>
     <div class="absolute inset-0" style="background:linear-gradient(0deg, rgba(5,7,8,0.85) 0%, rgba(5,7,8,0.25) 45%, rgba(5,7,8,0.55) 100%)"></div>
     <div class="particle-field absolute inset-0" data-variant="bubble" data-count="14" aria-hidden="true"><?php ghar_zende_particles( 'bubble', 14 ); ?></div>
 
     <div id="lifeCaptions" class="pointer-events-none absolute inset-x-0 top-1/2 z-10 mx-auto max-w-md -translate-y-1/2 px-6">
       <?php
-      $captions = array(
-			array( 'title' => 'نوری که از دل آب می‌گذرد', 'text' => 'هر پرتو، مسیر خودش را در تاریکی پیدا می‌کند.' ),
-			array( 'title' => 'هر آکواریوم، دنیای خودش', 'text' => 'ده‌ها متر سنگ، ده‌ها دنیای زنده‌ی جداگانه.' ),
-			array( 'title' => 'سکوت صخره، همهمه‌ی حیات', 'text' => 'بیرون سکوت است؛ پشت شیشه، زندگی در جریان است.' ),
-			array( 'title' => 'یک دنیای کامل', 'text' => 'این تاریکی، حالا خانه‌ی موجوداتی زنده است.' ),
-		);
+      $captions = ghar_zende_home_get( 'life_captions' );
       foreach ( $captions as $i => $c ) :
 			$is_first = 0 === $i;
 			?>
@@ -203,25 +155,38 @@ $geology_facts = array(
   </div>
   <div class="relative mx-auto max-w-6xl px-6">
     <div class="js-reveal mb-16 text-center">
-      <p class="font-display text-xs uppercase tracking-[0.4em] text-turquoise-soft">SPECIES</p>
-      <h2 class="mt-4 text-balance font-display text-3xl font-semibold text-foam sm:text-4xl">ساکنان این تاریکی</h2>
+      <p class="font-display text-xs uppercase tracking-[0.4em] text-turquoise-soft"><?php echo esc_html( ghar_zende_home_get( 'species_eyebrow' ) ); ?></p>
+      <h2 class="mt-4 text-balance font-display text-3xl font-semibold text-foam sm:text-4xl"><?php echo esc_html( ghar_zende_home_get( 'species_title' ) ); ?></h2>
     </div>
 
     <div class="species-grid grid grid-cols-1 gap-6 sm:grid-cols-2">
-      <?php foreach ( $species as $s ) : ?>
+      <?php
+      foreach ( $species as $s ) :
+			// A species can show an admin-uploaded photo, the theme's
+			// built-in default photo (only the first seeded species has
+			// one), or — for the rest — fall back to a two-tone SVG icon
+			// tinted with the color/accent fields.
+			$photo_id  = ! empty( $s['photo'] ) ? (int) $s['photo'] : 0;
+			$photo_url = $photo_id ? wp_get_attachment_image_url( $photo_id, 'full' ) : '';
+			if ( ! $photo_url && ! empty( $s['photo_default'] ) ) {
+				$photo_url = ghar_zende_img( $s['photo_default'] );
+			}
+			$icon_color  = ! empty( $s['color'] ) ? $s['color'] : '#3f8fd1';
+			$icon_accent = ! empty( $s['accent'] ) ? $s['accent'] : '#101820';
+			?>
       <div>
         <button type="button" data-cursor="مشاهده" class="species-card group relative flex w-full items-center gap-6 overflow-hidden rounded-2xl border border-foam/10 p-6 text-start transition-colors duration-500 bg-stone-900/40">
           <div class="species-glow absolute inset-0 -z-10 transition-opacity duration-500" style="background:radial-gradient(60% 80% at 15% 50%, var(--color-ocean-700), transparent 70%);opacity:0" aria-hidden="true"></div>
           <div class="species-photo w-24 shrink-0 transition-transform duration-700 ease-out scale-100">
-            <?php if ( ! empty( $s['photo'] ) ) : ?>
+            <?php if ( $photo_url ) : ?>
             <div class="relative aspect-square w-full overflow-hidden rounded-xl">
-              <img alt="<?php echo esc_attr( $s['name'] . ' در آکواریوم غار' ); ?>" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( $s['photo'] ) ); ?>" />
+              <img alt="<?php echo esc_attr( $s['name'] . ' در آکواریوم غار' ); ?>" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( $photo_url ); ?>" />
             </div>
             <?php else : ?>
             <svg viewBox="0 0 100 48" class="w-full h-auto" aria-hidden="true">
-              <path d="M4 24 C 16 4, 46 2, 62 12 C 74 4, 92 10, 98 24 C 92 38, 74 44, 62 36 C 46 46, 16 44, 4 24 Z" fill="<?php echo esc_attr( $s['color'] ); ?>" opacity="0.92" />
-              <path d="M62 12 L98 24 L62 36 Z" fill="<?php echo esc_attr( $s['accent'] ); ?>" opacity="0.85" />
-              <path d="M18 8 C 10 2, 4 6, 2 14 C 10 14, 16 12, 18 8 Z" fill="<?php echo esc_attr( $s['accent'] ); ?>" opacity="0.7" />
+              <path d="M4 24 C 16 4, 46 2, 62 12 C 74 4, 92 10, 98 24 C 92 38, 74 44, 62 36 C 46 46, 16 44, 4 24 Z" fill="<?php echo esc_attr( $icon_color ); ?>" opacity="0.92" />
+              <path d="M62 12 L98 24 L62 36 Z" fill="<?php echo esc_attr( $icon_accent ); ?>" opacity="0.85" />
+              <path d="M18 8 C 10 2, 4 6, 2 14 C 10 14, 16 12, 18 8 Z" fill="<?php echo esc_attr( $icon_accent ); ?>" opacity="0.7" />
               <circle cx="20" cy="21" r="2.4" fill="var(--color-void)" />
               <circle cx="20.7" cy="20.3" r="0.9" fill="var(--color-foam)" />
             </svg>
@@ -251,7 +216,7 @@ $geology_facts = array(
 
 <section id="geology" aria-label="درباره غار" class="relative w-full overflow-hidden bg-void py-32">
   <div class="absolute inset-0 overflow-hidden opacity-70" aria-hidden="true">
-    <img alt="ردیفی از آکواریوم‌ها دیده‌شده از میان قندیل‌های سنگی در پیش‌زمینه" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'corridor-stalagmites.webp' ) ); ?>" />
+    <img alt="ردیفی از آکواریوم‌ها دیده‌شده از میان قندیل‌های سنگی در پیش‌زمینه" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_home_image( 'geology_image', 'corridor-stalagmites.webp' ) ); ?>" />
     <div class="absolute inset-0 bg-void/55"></div>
     <div class="absolute inset-0" style="background:radial-gradient(120% 90% at 20% 15%, transparent 0%, var(--color-void) 92%);opacity:0.55"></div>
     <div class="noise-overlay"></div>
@@ -260,8 +225,8 @@ $geology_facts = array(
 
   <div class="relative mx-auto max-w-4xl px-6">
     <div class="js-reveal mb-24 text-center">
-      <p class="font-display text-xs uppercase tracking-[0.4em] text-turquoise-soft">THE GEOLOGY</p>
-      <h2 class="mt-4 text-balance font-display text-3xl font-semibold text-foam sm:text-4xl">این غار فقط یک غار نیست.</h2>
+      <p class="font-display text-xs uppercase tracking-[0.4em] text-turquoise-soft"><?php echo esc_html( ghar_zende_home_get( 'geology_eyebrow' ) ); ?></p>
+      <h2 class="mt-4 text-balance font-display text-3xl font-semibold text-foam sm:text-4xl"><?php echo esc_html( ghar_zende_home_get( 'geology_title' ) ); ?></h2>
     </div>
 
     <div class="flex flex-col gap-20">
@@ -284,7 +249,7 @@ $geology_facts = array(
       <div class="absolute inset-0" style="background:radial-gradient(120% 100% at 30% 20%, var(--color-stone-700), var(--color-stone-900) 70%);box-shadow:inset 0 0 60px rgba(0,0,0,0.6)"></div>
       <div class="absolute inset-[6%] overflow-hidden" style="clip-path:url(#cave-window-b)">
         <div class="js-story-photo absolute inset-0 scale-110 transition-[filter] duration-150" style="filter:brightness(0.1) saturate(0.15) blur(16px)">
-          <img alt="آکواریومی درون‌صخره‌ای با پرتوهای نور و حباب‌های آب، پر از ماهی‌های رنگارنگ" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'aquarium-window-light.webp' ) ); ?>" />
+          <img alt="آکواریومی درون‌صخره‌ای با پرتوهای نور و حباب‌های آب، پر از ماهی‌های رنگارنگ" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_home_image( 'story_image', 'aquarium-window-light.webp' ) ); ?>" />
         </div>
         <div class="js-story-pulse absolute inset-0" style="opacity:0;background:radial-gradient(45% 60% at 65% 10%, rgba(79,216,196,0.5), transparent 70%);mix-blend-mode:screen"></div>
         <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(115deg, rgba(244,239,227,0.08) 0%, transparent 30%, transparent 70%, rgba(244,239,227,0.05) 100%)"></div>
@@ -306,15 +271,16 @@ $geology_facts = array(
     <div id="storyBeamSoft" class="story-beam soft" aria-hidden="true"></div>
 
     <div class="pointer-events-none absolute inset-x-0 top-14 z-10 flex flex-col items-center gap-2 text-center">
-      <span id="storyChapterLabel" class="font-display text-[11px] uppercase tracking-[0.4em] text-turquoise-soft">THE CAVE · غار</span>
-      <p id="storyChapterText" class="text-balance font-display text-xl text-foam sm:text-2xl">میلیون‌ها سال در سکوت شکل گرفته.</p>
+      <?php $story_chapters = ghar_zende_home_get( 'story_chapters' ); $story_first = isset( $story_chapters[0] ) ? $story_chapters[0] : array(); ?>
+      <span id="storyChapterLabel" class="font-display text-[11px] uppercase tracking-[0.4em] text-turquoise-soft"><?php echo esc_html( ( ! empty( $story_first['title'] ) ? $story_first['title'] : 'THE CAVE' ) . ' · ' . ( ! empty( $story_first['persian'] ) ? $story_first['persian'] : 'غار' ) ); ?></span>
+      <p id="storyChapterText" class="text-balance font-display text-xl text-foam sm:text-2xl"><?php echo esc_html( ! empty( $story_first['text'] ) ? $story_first['text'] : 'میلیون‌ها سال در سکوت شکل گرفته.' ); ?></p>
     </div>
   </div>
 </section>
 
 <section id="visit" aria-label="بازدید از غار" class="relative flex min-h-[90vh] w-full items-center justify-center overflow-hidden py-24">
   <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-    <img alt="راهرو غار با ترکیبی از نور گرم و آبی، در انتهای مسیر بازدید" loading="lazy" decoding="async" class="scene-photo absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_img( 'corridor-warm-glow.webp' ) ); ?>" />
+    <img alt="راهرو غار با ترکیبی از نور گرم و آبی، در انتهای مسیر بازدید" loading="lazy" decoding="async" class="scene-photo absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_home_image( 'visit_image', 'corridor-warm-glow.webp' ) ); ?>" />
     <div class="absolute inset-0 bg-void/55"></div>
     <div class="absolute inset-0" style="background:radial-gradient(120% 90% at 20% 15%, transparent 0%, var(--color-void) 92%);opacity:0.55"></div>
     <div class="absolute inset-0" style="background:radial-gradient(45% 35% at 50% -10%, var(--color-amber-glow) 0%, transparent 70%);opacity:0.5;mix-blend-mode:screen"></div>
@@ -325,12 +291,16 @@ $geology_facts = array(
 
   <div class="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-8 px-6 text-center">
     <div>
-      <h2 class="text-balance font-display text-3xl font-semibold leading-relaxed text-foam sm:text-4xl"><?php echo ghar_zende_split_words( 'حالا نوبت توست که این دنیا را از نزدیک ببینی.' ); ?></h2>
+      <h2 class="text-balance font-display text-3xl font-semibold leading-relaxed text-foam sm:text-4xl"><?php echo ghar_zende_split_words( ghar_zende_home_get( 'visit_heading' ) ); ?></h2>
     </div>
     <div class="cta-row flex flex-wrap items-center justify-center gap-4">
-      <a href="#" data-cursor="بازدید" data-magnetic class="rounded-full bg-turquoise px-8 py-3 text-sm font-medium text-void transition-transform hover:scale-[1.03]">برنامه بازدید</a>
-      <a href="#" data-magnetic class="rounded-full border border-foam/25 px-8 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft">مسیریابی</a>
-      <a href="#" data-magnetic class="rounded-full border border-foam/25 px-8 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft">تماس با ما</a>
+      <?php foreach ( ghar_zende_home_get( 'visit_ctas' ) as $cta ) : ?>
+      <?php if ( ! empty( $cta['primary'] ) ) : ?>
+      <a href="<?php echo esc_url( $cta['href'] ); ?>" data-cursor="بازدید" data-magnetic class="rounded-full bg-turquoise px-8 py-3 text-sm font-medium text-void transition-transform hover:scale-[1.03]"><?php echo esc_html( $cta['text'] ); ?></a>
+      <?php else : ?>
+      <a href="<?php echo esc_url( $cta['href'] ); ?>" data-magnetic class="rounded-full border border-foam/25 px-8 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft"><?php echo esc_html( $cta['text'] ); ?></a>
+      <?php endif; ?>
+      <?php endforeach; ?>
     </div>
   </div>
 
