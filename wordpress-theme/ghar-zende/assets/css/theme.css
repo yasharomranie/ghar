@@ -2954,10 +2954,27 @@
     }
   }
 }
+/* Metric-matched fallback for Vazirmatn (next/font's own generated
+   fallback, kept verbatim) — sized/spaced via ascent/descent/size-adjust
+   overrides so body text doesn't visibly reflow once the real Google
+   Fonts file swaps in. Losing this is what broke ScrollTrigger's pinned
+   sections below the first screen: every trigger's start/end position is
+   measured once at load, and a big font-swap reflow after that point
+   pushed real content past where ScrollTrigger thought it was — reads as
+   "the scroll effects don't work" even though the JS ran correctly. */
+@font-face {
+  font-family: "Vazirmatn Fallback";
+  src: local(Arial);
+  ascent-override: 101.87%;
+  descent-override: 53.36%;
+  line-gap-override: 0.0%;
+  size-adjust: 100.66%;
+}
+
 :root {
   /* Loaded from Google Fonts (functions.php) instead of next/font's
      self-hosted build — --font-display/--font-body below reference this. */
-  --font-vazirmatn:"Vazirmatn";
+  --font-vazirmatn: "Vazirmatn", "Vazirmatn Fallback";
   --color-void:#050708;
   --color-stone-900:#0e0d0b;
   --color-stone-800:#1a1713;
@@ -3447,4 +3464,23 @@ body {
    pointers / reduced motion, exactly like CustomCursor.tsx returning null. */
 #customCursor.is-visible {
   display: flex;
+}
+
+/* Hero scroll-hint chevron pulse — Scene01Hero.tsx's own inline <style>
+   block, which lives outside the Tailwind/globals.css pipeline entirely
+   (a literal <style> tag in the component's JSX), so it never showed up
+   in the compiled bundle above. Ported verbatim. */
+@keyframes scrollHintPulse {
+  0%, 100% { opacity: 0.25; transform: scaleY(0.6); }
+  50% { opacity: 0.9; transform: scaleY(1); }
+}
+.scroll-chevron {
+  transform-origin: top;
+  animation: scrollHintPulse 2.2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-chevron {
+    animation: none;
+    opacity: 0.6;
+  }
 }

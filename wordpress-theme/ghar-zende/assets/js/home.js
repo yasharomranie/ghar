@@ -254,4 +254,24 @@
       });
     });
   }
+
+  /* ---------------------------------------------------------------
+   * Re-measure every pinned section once webfonts finish swapping in.
+   * ScrollTrigger measures each trigger's start/end once, at load, using
+   * whatever font is painted at that moment (the fallback face) — if the
+   * real Vazirmatn file (loaded from Google Fonts, not bundled like
+   * next/font did) arrives after that and reflows text height anywhere
+   * above a given section, that section's trigger points drift out from
+   * under it. assets/css/theme.css also restores next/font's own
+   * metric-matched fallback font to keep that reflow small in the first
+   * place; this is the safety net for whatever's left.
+   * ----------------------------------------------------------- */
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () {
+      ScrollTrigger.refresh();
+    });
+  }
+  window.addEventListener("load", function () {
+    ScrollTrigger.refresh();
+  });
 })();
