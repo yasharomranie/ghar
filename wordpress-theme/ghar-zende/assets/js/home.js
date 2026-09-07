@@ -52,6 +52,41 @@
   }
 
   /* ---------------------------------------------------------------
+   * Hero CTA ("کشف غار") — instead of just jumping straight to the
+   * next section, smoothly auto-scrolls all the way to the bottom of
+   * the page over several seconds, so every scene's scroll-driven
+   * effect gets a chance to play without the visitor having to
+   * scroll by hand. Duration scales with distance (roughly one
+   * viewport height every 2.5s) so it stays a gentle tour regardless
+   * of how tall the page is. A manual wheel/touch/drag during the
+   * tour interrupts it — that's Lenis's own scrollTo behavior, not
+   * something added here — so nobody's stuck riding it out. Skipped
+   * entirely under reduced motion, where the button just falls back
+   * to being a plain anchor link (browser default jump).
+   * ----------------------------------------------------------- */
+  if (typeof lenis !== "undefined" && lenis) {
+    var heroCta = document.querySelector(".hero-cta");
+    if (heroCta) {
+      heroCta.addEventListener("click", function (e) {
+        e.preventDefault();
+        var target = document.documentElement.scrollHeight - window.innerHeight;
+        var distance = Math.max(0, target - window.scrollY);
+        var pxPerSecond = window.innerHeight / 2.5;
+        var duration = Math.min(60, Math.max(12, distance / pxPerSecond));
+        lenis.scrollTo(target, {
+          duration: duration,
+          // ease-out (not in-out): full speed from the first frame so the
+          // click reads as responsive, gently decelerating into the
+          // landing at the bottom instead of stopping abruptly.
+          easing: function (t) {
+            return 1 - Math.pow(1 - t, 2);
+          },
+        });
+      });
+    }
+  }
+
+  /* ---------------------------------------------------------------
    * Intro curtain — a brief title card before the hero. Removed
    * outright (not just hidden) under reduced motion.
    * ----------------------------------------------------------- */
