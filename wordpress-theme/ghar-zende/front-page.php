@@ -302,7 +302,15 @@ $geology_facts = ghar_zende_home_get( 'geology_facts' );
     <div class="cta-row flex flex-wrap items-center justify-center gap-4">
       <?php foreach ( ghar_zende_home_get( 'visit_ctas' ) as $cta ) : ?>
       <?php if ( ! empty( $cta['primary'] ) ) : ?>
-      <a href="<?php echo esc_url( $cta['href'] ); ?>" data-cursor="بازدید" data-magnetic class="rounded-full bg-turquoise px-8 py-3 text-sm font-medium text-void transition-transform hover:scale-[1.03]"><?php echo esc_html( $cta['text'] ); ?></a>
+      <?php // No hover:scale/transition-transform here on purpose: this
+      // element also gets a live inline "transform" from the magnetic
+      // pointer-follow effect (assets/js/home.js), and a CSS transition
+      // on the same property fought it — the button visibly grew AND
+      // drifted toward the cursor on hover, far more than the plain
+      // color-only hover the other two CTAs have, which read as broken/
+      // jarring. Matches the sibling buttons' transition-colors pattern
+      // instead, so hover here is just a color shift, consistent with them. ?>
+      <a href="<?php echo esc_url( $cta['href'] ); ?>" data-cursor="بازدید" data-magnetic class="visit-cta-primary rounded-full bg-turquoise px-8 py-3 text-sm font-medium text-void transition-colors"><?php echo esc_html( $cta['text'] ); ?></a>
       <?php else : ?>
       <a href="<?php echo esc_url( $cta['href'] ); ?>" data-magnetic class="rounded-full border border-foam/25 px-8 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft"><?php echo esc_html( $cta['text'] ); ?></a>
       <?php endif; ?>

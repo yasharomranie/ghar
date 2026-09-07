@@ -3503,6 +3503,18 @@ body {
   }
 }
 
+/* Visit-section primary CTA ("برنامه بازدید") hover — plain color
+   shift only, no scale/transform. This link also gets a live inline
+   `transform` from the magnetic pointer-follow effect in
+   assets/js/home.js; a CSS hover:scale on the same property fought
+   that tween, so on hover the button visibly grew AND drifted toward
+   the cursor at once — much more dramatic than the other two CTAs'
+   plain color-only hover, which read as broken/jarring rather than
+   an intentional effect. */
+.visit-cta-primary:hover {
+  background-color: color-mix(in srgb, var(--color-turquoise) 85%, white 15%);
+}
+
 /* Hero CTA ("کشف غار") — neon sign blink: border + text glow pulses
    between a dim resting state and a bright turquoise flare. */
 @keyframes heroCtaNeon {
