@@ -3484,6 +3484,25 @@ body {
   }
 }
 
+/* Visit-section CTA row (برنامه بازدید / مسیریابی / تماس با ما) — at
+   common phone widths the three buttons don't all fit on one line, so
+   flex-wrap silently wrapped the row and left whichever button didn't
+   fit alone on a second line, looking like it had "fallen" out of
+   alignment with the other two. Verified with a local Playwright
+   render at 320-430px: the row wraps 2-then-1 (or 1-then-2) depending
+   on exact width. Stacking every button on its own full-width row
+   below the sm breakpoint removes the ambiguous wrap entirely. */
+@media (max-width: 639px) {
+  .cta-row {
+    flex-direction: column;
+    width: 100%;
+  }
+  .cta-row > a {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
 /* Hero CTA ("کشف غار") — neon sign blink: border + text glow pulses
    between a dim resting state and a bright turquoise flare. */
 @keyframes heroCtaNeon {
