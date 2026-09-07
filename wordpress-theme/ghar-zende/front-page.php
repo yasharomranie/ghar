@@ -26,12 +26,16 @@ $geology_facts = ghar_zende_home_get( 'geology_facts' );
 
 <section id="hero" aria-label="ورود به غار" class="relative flex h-[100svh] min-h-[560px] w-full items-center justify-center overflow-hidden">
   <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-    <img alt="نمای تاریک و مرموز از دل یک شکاف صخره‌ای، با نوری بسیار کم‌رنگ در انتهای مسیر" decoding="async" class="scene-photo absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_home_image( 'hero_image', 'hero-entrance.webp' ) ); ?>" />
-    <div class="absolute inset-0 bg-void/55"></div>
-    <div class="absolute inset-0" style="background:radial-gradient(120% 90% at 20% 15%, transparent 0%, var(--color-void) 92%);opacity:0.55"></div>
-    <div class="absolute inset-0" style="background:radial-gradient(45% 35% at 50% 50%, var(--color-amber-glow) 0%, transparent 70%);opacity:0.12;mix-blend-mode:screen"></div>
+    <img alt="نمای تاریک و مرموز از دل یک شکاف صخره‌ای، با نوری بسیار کم‌رنگ در انتهای مسیر" decoding="async" class="scene-photo absolute inset-0 h-full w-full object-cover" style="filter:brightness(1.35) saturate(1.05)" src="<?php echo esc_url( ghar_zende_home_image( 'hero_image', 'hero-entrance.webp' ) ); ?>" />
+    <!-- Lightened from the original bg-void/55 + 0.55/0.75 overlay opacities:
+         stacked together they made the very first thing a visitor sees
+         almost solid black — the photo itself (already a deliberately dark
+         "mysterious cave entrance" shot) was barely visible under them. -->
+    <div class="absolute inset-0 bg-void" style="opacity:0.22"></div>
+    <div class="absolute inset-0" style="background:radial-gradient(120% 90% at 20% 15%, transparent 0%, var(--color-void) 92%);opacity:0.32"></div>
+    <div class="absolute inset-0" style="background:radial-gradient(45% 35% at 50% 50%, var(--color-amber-glow) 0%, transparent 70%);opacity:0.16;mix-blend-mode:screen"></div>
     <div class="noise-overlay"></div>
-    <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(5,7,8,0) 0%, rgba(5,7,8,0.75) 100%)"></div>
+    <div class="absolute inset-0" style="background:linear-gradient(180deg, rgba(5,7,8,0) 0%, rgba(5,7,8,0.45) 100%)"></div>
   </div>
   <div class="particle-field absolute inset-0" data-variant="dust" data-count="26" aria-hidden="true"><?php ghar_zende_particles( 'dust', 26 ); ?></div>
 
