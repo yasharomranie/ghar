@@ -3484,6 +3484,34 @@ body {
   }
 }
 
+/* Hero CTA ("کشف غار") — neon sign blink: border + text glow pulses
+   between a dim resting state and a bright turquoise flare. */
+@keyframes heroCtaNeon {
+  0%, 100% {
+    border-color: color-mix(in srgb, var(--color-turquoise) 40%, transparent);
+    box-shadow: 0 0 3px color-mix(in srgb, var(--color-turquoise) 30%, transparent);
+    text-shadow: none;
+  }
+  50% {
+    border-color: var(--color-turquoise-soft);
+    box-shadow:
+      0 0 10px var(--color-turquoise),
+      0 0 22px color-mix(in srgb, var(--color-turquoise) 55%, transparent),
+      inset 0 0 6px color-mix(in srgb, var(--color-turquoise-soft) 35%, transparent);
+    text-shadow:
+      0 0 6px var(--color-turquoise-soft),
+      0 0 14px color-mix(in srgb, var(--color-turquoise) 45%, transparent);
+  }
+}
+.hero-cta {
+  animation: heroCtaNeon 1.9s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-cta {
+    animation: none;
+  }
+}
+
 /* ---------------------------------------------------------------------
  * Richer cinematic effects — ported from the original preview artifact
  * (an earlier, more elaborate demo than the current React source): intro

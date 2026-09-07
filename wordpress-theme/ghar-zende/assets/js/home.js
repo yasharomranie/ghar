@@ -71,8 +71,10 @@
         e.preventDefault();
         var target = document.documentElement.scrollHeight - window.innerHeight;
         var distance = Math.max(0, target - window.scrollY);
-        var pxPerSecond = window.innerHeight / 2.5;
-        var duration = Math.min(60, Math.max(12, distance / pxPerSecond));
+        // Slower pace per user feedback: one viewport height every 3.4s
+        // (was 2.5s).
+        var pxPerSecond = window.innerHeight / 3.4;
+        var duration = Math.min(75, Math.max(15, distance / pxPerSecond));
         lenis.scrollTo(target, {
           duration: duration,
           // ease-out (not in-out): full speed from the first frame so the
