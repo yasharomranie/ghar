@@ -209,8 +209,18 @@ function ghar_zende_rest_article_fields() {
 			'get_callback' => function ( $post ) {
 				$post_id    = $post['id'];
 				$categories = get_the_category( $post_id );
-				$cat_name   = ! empty( $categories ) ? $categories[0]->name : '';
-				$thumb      = get_the_post_thumbnail_url( $post_id, 'ghar-card' );
+				// "اسلایدر"/"ویژه" (see archive-cave_article.php) are
+				// placement categories, not topics — skip them so the
+				// badge/author lookup below reflects the post's real
+				// topic instead, same as the server-rendered cards.
+				$cat_name = '';
+				foreach ( $categories as $cat ) {
+					if ( ! in_array( $cat->slug, array( 'slider', 'featured' ), true ) ) {
+						$cat_name = $cat->name;
+						break;
+					}
+				}
+				$thumb = get_the_post_thumbnail_url( $post_id, 'ghar-card' );
 
 				return array(
 					'category'   => $cat_name,

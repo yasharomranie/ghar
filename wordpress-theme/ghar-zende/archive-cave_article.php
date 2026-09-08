@@ -1,18 +1,62 @@
 <?php
 /**
  * Magazine listing (/magazine/) — ported from src/app/magazine/page.tsx:
- * HeroSlider (5 latest) + FeaturedCarousel (8 latest, grouped by 4) +
- * ArticleGrid (12 initial, infinite-scroll via REST after that).
+ * HeroSlider + FeaturedCarousel (grouped by 4) + ArticleGrid (infinite-
+ * scroll via REST after the initial 12).
+ *
+ * The three sections read from three different places, all real
+ * cave_article posts (no hardcoded content):
+ *  - Hero slider: posts in the "اسلایدر" (Slider) category — an editor
+ *    marks a post for the hero by adding that category to it, same as
+ *    any other WP category.
+ *  - Featured: posts in the "ویژه" (Featured) category, same idea.
+ *  - Latest: the site's actual latest cave_article posts, no category
+ *    filter — always current, nothing to maintain.
+ * If a post hasn't been tagged into "اسلایدر"/"ویژه" yet (or the editor
+ * never uses those categories), that section falls back to the site's
+ * latest posts instead of rendering empty.
  */
 get_header();
 
+function ghar_zende_magazine_query( $category_slug, $count ) {
+	$args = array(
+		'post_type'      => 'cave_article',
+		'posts_per_page' => $count,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+	);
+	if ( $category_slug ) {
+		$args['category_name'] = $category_slug;
+	}
+	$query = new WP_Query( $args );
+	if ( $category_slug && ! $query->have_posts() ) {
+		// Nothing tagged into that category yet — fall back to the
+		// latest posts overall so the section isn't empty.
+		unset( $args['category_name'] );
+		$query = new WP_Query( $args );
+	}
+	return $query;
+}
+
 function ghar_zende_card_data( $post_id ) {
 	$categories = get_the_category( $post_id );
+	// "اسلایدر"/"ویژه" are placement categories — they decide *where* a
+	// post shows up on this page (see ghar_zende_magazine_query() above),
+	// not what topic badge the card wears. Skip them when picking which
+	// category name to display, preferring a real topical one if the
+	// post has one.
+	$display_category = '';
+	foreach ( $categories as $cat ) {
+		if ( ! in_array( $cat->slug, array( 'slider', 'featured' ), true ) ) {
+			$display_category = $cat->name;
+			break;
+		}
+	}
 	return array(
 		'slug'     => get_post_field( 'post_name', $post_id ),
 		'title'    => get_the_title( $post_id ),
 		'excerpt'  => wp_strip_all_tags( get_the_excerpt( $post_id ) ),
-		'category' => ! empty( $categories ) ? $categories[0]->name : '',
+		'category' => $display_category,
 		'date'     => ghar_zende_jalali_date( get_the_date( 'Y-m-d', $post_id ) ),
 		'readTime' => ghar_zende_read_time( $post_id ),
 		'image'    => get_the_post_thumbnail_url( $post_id, 'ghar-card' ),
@@ -20,40 +64,19 @@ function ghar_zende_card_data( $post_id ) {
 	);
 }
 
-$hero_query = new WP_Query(
-	array(
-		'post_type'      => 'cave_article',
-		'posts_per_page' => 5,
-		'orderby'        => 'date',
-		'order'          => 'DESC',
-	)
-);
+$hero_query  = ghar_zende_magazine_query( 'slider', 5 );
 $hero_slides = array();
 foreach ( $hero_query->posts as $p ) {
 	$hero_slides[] = ghar_zende_card_data( $p->ID );
 }
 
-$featured_query = new WP_Query(
-	array(
-		'post_type'      => 'cave_article',
-		'posts_per_page' => 8,
-		'orderby'        => 'date',
-		'order'          => 'DESC',
-	)
-);
+$featured_query    = ghar_zende_magazine_query( 'featured', 8 );
 $featured_articles = array();
 foreach ( $featured_query->posts as $p ) {
 	$featured_articles[] = ghar_zende_card_data( $p->ID );
 }
 
-$latest_query = new WP_Query(
-	array(
-		'post_type'      => 'cave_article',
-		'posts_per_page' => 12,
-		'orderby'        => 'date',
-		'order'          => 'DESC',
-	)
-);
+$latest_query    = ghar_zende_magazine_query( null, 12 );
 $latest_articles = array();
 foreach ( $latest_query->posts as $p ) {
 	$latest_articles[] = ghar_zende_card_data( $p->ID );
