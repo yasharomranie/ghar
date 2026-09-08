@@ -225,6 +225,10 @@ $geology_facts = ghar_zende_home_get( 'geology_facts' );
       </div>
       <?php endforeach; ?>
     </div>
+
+    <div class="mt-12 text-center">
+      <a href="<?php echo esc_url( ghar_zende_home_get( 'species_more_href' ) ); ?>" data-magnetic class="neon-cta inline-flex items-center gap-3 rounded-full border border-foam/25 px-7 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft"><?php echo esc_html( ghar_zende_home_get( 'species_more_text' ) ); ?></a>
+    </div>
   </div>
 </section>
 

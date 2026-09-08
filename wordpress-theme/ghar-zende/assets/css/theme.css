@@ -3515,8 +3515,11 @@ body {
   background-color: color-mix(in srgb, var(--color-turquoise) 85%, white 15%);
 }
 
-/* Hero CTA ("کشف غار") — neon sign blink: border + text glow pulses
-   between a dim resting state and a bright turquoise flare. */
+/* Neon sign blink: border + text glow pulses between a dim resting
+   state and a bright turquoise flare. Started as ".hero-cta" only
+   ("کشف غار"); ".neon-cta" is the same effect under a reusable name
+   for other buttons that want it (e.g. the species section's "ساکنان
+   بیشتر"). */
 @keyframes heroCtaNeon {
   0%, 100% {
     border-color: color-mix(in srgb, var(--color-turquoise) 40%, transparent);
@@ -3534,11 +3537,13 @@ body {
       0 0 14px color-mix(in srgb, var(--color-turquoise) 45%, transparent);
   }
 }
-.hero-cta {
+.hero-cta,
+.neon-cta {
   animation: heroCtaNeon 1.9s ease-in-out infinite;
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-cta {
+  .hero-cta,
+  .neon-cta {
     animation: none;
   }
 }

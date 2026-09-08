@@ -73,9 +73,11 @@ function ghar_zende_home_defaults() {
 			),
 		),
 
-		'species_eyebrow' => 'SPECIES',
-		'species_title'   => 'ساکنان این تاریکی',
-		'species'         => array(
+		'species_eyebrow'   => 'SPECIES',
+		'species_title'     => 'ساکنان این تاریکی',
+		'species_more_text' => 'ساکنان بیشتر',
+		'species_more_href' => '#',
+		'species'           => array(
 			array(
 				'name'          => 'فرشته‌ماهی سلطنتی',
 				'sci'           => 'Pygoplites diacanthus',
@@ -221,6 +223,8 @@ function ghar_zende_home_field_types() {
 
 		'species_eyebrow'      => 'text',
 		'species_title'        => 'text',
+		'species_more_text'    => 'text',
+		'species_more_href'    => 'url',
 
 		'geology_eyebrow'      => 'text',
 		'geology_title'        => 'text',
@@ -661,6 +665,9 @@ function ghar_zende_home_render_page() {
 				ghar_zende_home_render_text( 'species_eyebrow', 'زیرعنوان انگلیسی', $content );
 				ghar_zende_home_render_text( 'species_title', 'عنوان بخش', $content );
 				ghar_zende_home_render_repeater( 'species', $content['species'], 'افزودن گونه‌ی جدید', 'ghar_zende_home_row_species' );
+				echo '<h3>دکمه‌ی نئونی زیر جدول گونه‌ها</h3>';
+				ghar_zende_home_render_text( 'species_more_text', 'متن دکمه', $content );
+				ghar_zende_home_render_text( 'species_more_href', 'لینک دکمه', $content, 'url' );
 				?>
 			</div>
 
