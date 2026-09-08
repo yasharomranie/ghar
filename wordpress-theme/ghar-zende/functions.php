@@ -106,7 +106,10 @@ function ghar_zende_assets() {
 			'ghar-zende-magazine',
 			'GHAR_MAGAZINE',
 			array(
-				'restUrl' => esc_url_raw( rest_url( 'wp/v2/cave_article' ) ),
+				// The magazine listing now reads WordPress's native `post`
+				// type (see archive-cave_article.php), not cave_article —
+				// the infinite-scroll fetch needs to match.
+				'restUrl' => esc_url_raw( rest_url( 'wp/v2/posts' ) ),
 				'nonce'   => wp_create_nonce( 'wp_rest' ),
 			)
 		);
@@ -197,13 +200,17 @@ function ghar_zende_has_hero() {
 }
 
 /**
- * REST: expose category + featured image URL on cave_article responses so
- * the magazine listing's infinite-scroll JS (fetching raw REST data) can
- * render cards without a second round trip per post.
+ * REST: expose category + featured image URL on post/cave_article
+ * responses so the magazine listing's infinite-scroll JS (fetching raw
+ * REST data from /wp/v2/posts) can render cards without a second round
+ * trip per post. Registered on both types — 'post' is what the
+ * magazine listing actually reads now, 'cave_article' is kept so its
+ * older demo posts (still browsable at their own URLs) keep working
+ * too.
  */
 function ghar_zende_rest_article_fields() {
 	register_rest_field(
-		'cave_article',
+		array( 'post', 'cave_article' ),
 		'ghar_meta',
 		array(
 			'get_callback' => function ( $post ) {

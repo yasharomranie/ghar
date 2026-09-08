@@ -4,14 +4,20 @@
  * HeroSlider + FeaturedCarousel (grouped by 4) + ArticleGrid (infinite-
  * scroll via REST after the initial 12).
  *
- * The three sections read from three different places, all real
- * cave_article posts (no hardcoded content):
+ * Reads WordPress's native `post` type (real articles already on the
+ * site — the "غار آکواریوم همدان" posts etc.), NOT the cave_article CPT.
+ * cave_article's ~20 seeded demo posts are left alone (still browsable
+ * at their own URLs) but no longer feed this page — this was a
+ * deliberate switch back from an earlier, wrong CPT-based approach.
+ *
+ * The three sections read from three different slices, all real `post`
+ * content (no hardcoded content):
  *  - Hero slider: posts in the "اسلایدر" (Slider) category — an editor
  *    marks a post for the hero by adding that category to it, same as
  *    any other WP category.
  *  - Featured: posts in the "ویژه" (Featured) category, same idea.
- *  - Latest: the site's actual latest cave_article posts, no category
- *    filter — always current, nothing to maintain.
+ *  - Latest: the site's actual latest posts, no category filter —
+ *    always current, nothing to maintain.
  * If a post hasn't been tagged into "اسلایدر"/"ویژه" yet (or the editor
  * never uses those categories), that section falls back to the site's
  * latest posts instead of rendering empty.
@@ -20,7 +26,7 @@ get_header();
 
 function ghar_zende_magazine_query( $category_slug, $count ) {
 	$args = array(
-		'post_type'      => 'cave_article',
+		'post_type'      => 'post',
 		'posts_per_page' => $count,
 		'orderby'        => 'date',
 		'order'          => 'DESC',
