@@ -27,6 +27,10 @@
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var finePointer = window.matchMedia("(pointer: fine)").matches;
 
+  // Shared with entranceSound() below and the hero-cta narration clip,
+  // so #soundToggle mutes/unmutes every sound on the page from one flag.
+  var siteSoundOn = true;
+
   function clamp01(v) {
     return Math.max(0, Math.min(1, v));
   }
@@ -67,8 +71,26 @@
   if (typeof lenis !== "undefined" && lenis) {
     var heroCta = document.querySelector(".hero-cta");
     if (heroCta) {
+      // Narration clip (data-audio, set in front-page.php) that plays
+      // alongside the auto-scroll tour below. Respects the same
+      // siteSoundOn mute flag as the entrance sound/toggle. Created once
+      // and rewound on each click rather than a fresh Audio() per click,
+      // so a second click restarts the clip instead of overlapping it.
+      var discoverAudioSrc = heroCta.getAttribute("data-audio");
+      var discoverAudio = discoverAudioSrc ? new Audio(discoverAudioSrc) : null;
+      if (discoverAudio) discoverAudio.preload = "auto";
+
       heroCta.addEventListener("click", function (e) {
         e.preventDefault();
+
+        if (discoverAudio && siteSoundOn) {
+          discoverAudio.currentTime = 0;
+          discoverAudio.play().catch(function () {
+            // Autoplay can still be blocked in rare edge cases; the
+            // scroll tour below still runs regardless.
+          });
+        }
+
         var target = document.documentElement.scrollHeight - window.innerHeight;
         var distance = Math.max(0, target - window.scrollY);
         // Slower pace per user feedback: one viewport height every 3.4s
@@ -128,7 +150,6 @@
     if (!toggles.length) return;
 
     var audioCtx = null;
-    var soundOn = true;
     var hasPlayed = false;
 
     function ensureAudioCtx() {
@@ -202,7 +223,7 @@
     }
 
     function tryAutoEntrance() {
-      if (hasPlayed || !soundOn) return;
+      if (hasPlayed || !siteSoundOn) return;
       var ctx = ensureAudioCtx();
       if (ctx && ctx.state === "running") {
         hasPlayed = true;
@@ -216,13 +237,13 @@
 
     toggles.forEach(function (btn) {
       btn.addEventListener("click", function () {
-        soundOn = !soundOn;
+        siteSoundOn = !siteSoundOn;
         toggles.forEach(function (b) {
-          b.classList.toggle("muted", !soundOn);
-          b.setAttribute("aria-pressed", String(soundOn));
-          b.setAttribute("aria-label", soundOn ? "قطع صدای ورود" : "فعال‌سازی صدای ورود");
+          b.classList.toggle("muted", !siteSoundOn);
+          b.setAttribute("aria-pressed", String(siteSoundOn));
+          b.setAttribute("aria-label", siteSoundOn ? "قطع صدای ورود" : "فعال‌سازی صدای ورود");
         });
-        if (soundOn) {
+        if (siteSoundOn) {
           hasPlayed = true;
           playEntranceSound();
         }
