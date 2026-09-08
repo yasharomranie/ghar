@@ -45,7 +45,15 @@ $geology_facts = ghar_zende_home_get( 'geology_facts' );
     <p class="hero-eyebrow font-display text-xs uppercase tracking-[0.4em] text-turquoise-soft"><?php echo esc_html( ghar_zende_home_get( 'hero_eyebrow' ) ); ?></p>
     <h1 class="text-balance font-display text-4xl font-semibold leading-[1.35] text-foam sm:text-5xl md:text-6xl"><span class="line"><?php echo esc_html( ghar_zende_home_get( 'hero_title_line1' ) ); ?></span><br /><span class="line"><?php echo esc_html( ghar_zende_home_get( 'hero_title_line2' ) ); ?></span></h1>
     <p class="text-balance text-base text-foam-dim sm:text-lg hero-lede"><?php echo esc_html( ghar_zende_home_get( 'hero_lede' ) ); ?></p>
-    <a href="<?php echo esc_url( ghar_zende_home_get( 'hero_cta_href' ) ); ?>" data-cursor="کشف" data-magnetic data-audio="<?php echo esc_url( GHAR_ZENDE_URI . '/assets/audio/discover-cave.mp3' ); ?>" class="hero-cta group relative mt-4 inline-flex items-center gap-3 rounded-full border border-foam/25 px-7 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft"><?php echo esc_html( ghar_zende_home_get( 'hero_cta_text' ) ); ?></a>
+    <?php
+    // Uploaded to the WordPress media library directly (not a theme
+    // asset file — WPVibe's file tools only push text-editable
+    // extensions, not binary audio), so this points at its uploads/
+    // URL rather than GHAR_ZENDE_URI. assets/audio/discover-cave.mp3
+    // in the repo is the same clip, kept for the git/local history.
+    $hero_discover_audio = 'https://gharakvariom.ir/wp-content/uploads/2026/09/ElevenLabs_2026-09-08T06_38_41__s50_v3.mp3';
+    ?>
+    <a href="<?php echo esc_url( ghar_zende_home_get( 'hero_cta_href' ) ); ?>" data-cursor="کشف" data-magnetic data-audio="<?php echo esc_url( $hero_discover_audio ); ?>" class="hero-cta group relative mt-4 inline-flex items-center gap-3 rounded-full border border-foam/25 px-7 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft"><?php echo esc_html( ghar_zende_home_get( 'hero_cta_text' ) ); ?></a>
   </div>
 
   <a href="#darkness" class="scroll-hint absolute inset-x-0 bottom-8 z-10 mx-auto flex w-fit flex-col items-center gap-2 text-foam-faint">
