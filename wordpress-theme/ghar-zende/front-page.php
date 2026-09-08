@@ -24,7 +24,7 @@ $species       = ghar_zende_home_get( 'species' );
 $geology_facts = ghar_zende_home_get( 'geology_facts' );
 ?>
 
-<section id="hero" aria-label="ورود به غار" class="relative flex h-[100svh] min-h-[560px] w-full items-center justify-center overflow-hidden">
+<section id="hero" aria-label="ورود به غار" class="relative flex h-[100svh] min-h-[560px] w-full items-center justify-center overflow-hidden bg-void">
   <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
     <img alt="نمای تاریک و مرموز از دل یک شکاف صخره‌ای، با نوری بسیار کم‌رنگ در انتهای مسیر" decoding="async" class="scene-photo absolute inset-0 h-full w-full object-cover" style="filter:brightness(1.55) saturate(1.1)" src="<?php echo esc_url( ghar_zende_home_image( 'hero_image', 'hero-entrance.webp' ) ); ?>" />
     <!-- Lightened from the original bg-void/55 + 0.55/0.75 overlay opacities:
@@ -81,7 +81,7 @@ $geology_facts = ghar_zende_home_get( 'geology_facts' );
   </div>
 </section>
 
-<section id="water" aria-label="نخستین آب" class="relative flex h-[90vh] min-h-[520px] w-full items-center justify-center overflow-hidden">
+<section id="water" aria-label="نخستین آب" class="relative flex h-[90vh] min-h-[520px] w-full items-center justify-center overflow-hidden bg-void">
   <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
     <img alt="ردیفی از آکواریوم‌های نورانی در دل صخره، دیده‌شده از فاصله‌ای نزدیک‌تر" loading="lazy" decoding="async" class="scene-photo absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_home_image( 'water_image', 'water-corridor.webp' ) ); ?>" />
     <div class="absolute inset-0 bg-void/55"></div>
@@ -292,7 +292,7 @@ $geology_facts = ghar_zende_home_get( 'geology_facts' );
   </div>
 </section>
 
-<section id="visit" aria-label="بازدید از غار" class="relative flex min-h-[90vh] w-full items-center justify-center overflow-hidden py-24">
+<section id="visit" aria-label="بازدید از غار" class="relative flex min-h-[90vh] w-full items-center justify-center overflow-hidden py-24 bg-void">
   <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
     <img alt="راهرو غار با ترکیبی از نور گرم و آبی، در انتهای مسیر بازدید" loading="lazy" decoding="async" class="scene-photo absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( ghar_zende_home_image( 'visit_image', 'corridor-warm-glow.webp' ) ); ?>" />
     <div class="absolute inset-0 bg-void/55"></div>
