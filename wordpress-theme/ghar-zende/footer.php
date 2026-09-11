@@ -18,7 +18,7 @@
       <nav class="grid grid-cols-2 gap-x-10 gap-y-3 text-sm sm:grid-cols-3" aria-label="پیمایش فوتر">
         <a class="text-ink-dim transition-colors hover:text-ink" href="<?php echo esc_url( home_url( '/#hero' ) ); ?>">غار</a>
         <a class="text-ink-dim transition-colors hover:text-ink" href="<?php echo esc_url( home_url( '/#aquarium' ) ); ?>">آکواریوم</a>
-        <a class="text-ink-dim transition-colors hover:text-ink" href="<?php echo esc_url( home_url( '/#species' ) ); ?>">گونه‌ها</a>
+        <a class="text-ink-dim transition-colors hover:text-ink" href="<?php echo esc_url( function_exists( 'ghar_zende_species_page_url' ) ? ghar_zende_species_page_url() : home_url( '/#species' ) ); ?>">گونه‌ها</a>
         <a class="text-ink-dim transition-colors hover:text-ink" href="<?php echo esc_url( home_url( '/#geology' ) ); ?>">درباره غار</a>
         <a class="text-ink-dim transition-colors hover:text-ink" href="<?php echo esc_url( home_url( '/#visit' ) ); ?>">بازدید</a>
         <a class="text-ink-dim transition-colors hover:text-ink" href="<?php echo esc_url( home_url( '/magazine' ) ); ?>">مجله خبری</a>

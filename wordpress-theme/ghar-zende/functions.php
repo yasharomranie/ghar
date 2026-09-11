@@ -129,6 +129,8 @@ require_once GHAR_ZENDE_DIR . '/inc/helpers.php';
 require_once GHAR_ZENDE_DIR . '/inc/importer.php';
 require_once GHAR_ZENDE_DIR . '/inc/nav-walker.php';
 require_once GHAR_ZENDE_DIR . '/inc/homepage-panel.php';
+require_once GHAR_ZENDE_DIR . '/inc/species-posts.php';
+require_once GHAR_ZENDE_DIR . '/inc/visit-popup.php';
 
 /**
  * Fallback primary menu — used until an admin assigns a real one under
@@ -141,7 +143,7 @@ function ghar_zende_fallback_menu( $context = 'desktop' ) {
 	$items = array(
 		array( home_url( '/#hero' ), 'غار', false ),
 		array( home_url( '/#aquarium' ), 'آکواریوم', false ),
-		array( home_url( '/#species' ), 'گونه‌ها', false ),
+		array( function_exists( 'ghar_zende_species_page_url' ) ? ghar_zende_species_page_url() : home_url( '/#species' ), 'گونه‌ها', false ),
 		array( home_url( '/#geology' ), 'درباره غار', false ),
 		array( home_url( '/magazine' ), 'مجله خبری', false ),
 		array( home_url( '/#visit' ), 'برنامه بازدید', true ),

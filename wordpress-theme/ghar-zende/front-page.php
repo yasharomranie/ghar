@@ -20,7 +20,7 @@ get_header();
 // (inc/homepage-panel.php), falling back to its built-in defaults —
 // which are exactly what used to be hardcoded here — until an admin
 // edits something there.
-$species       = ghar_zende_home_get( 'species' );
+$species       = ghar_zende_species_items();
 $geology_facts = ghar_zende_home_get( 'geology_facts' );
 ?>
 
@@ -182,19 +182,24 @@ $geology_facts = ghar_zende_home_get( 'geology_facts' );
 			// tinted with the color/accent fields.
 			$photo_id  = ! empty( $s['photo'] ) ? (int) $s['photo'] : 0;
 			$photo_url = $photo_id ? wp_get_attachment_image_url( $photo_id, 'full' ) : '';
+			if ( ! $photo_url && ! empty( $s['photo_url'] ) ) {
+				$photo_url = $s['photo_url'];
+			}
 			if ( ! $photo_url && ! empty( $s['photo_default'] ) ) {
 				$photo_url = ghar_zende_img( $s['photo_default'] );
 			}
+			$photo_alt   = ! empty( $s['alt'] ) ? $s['alt'] : $s['name'] . ' در آکواریوم غار';
+			$card_url    = ! empty( $s['url'] ) ? $s['url'] : '';
 			$icon_color  = ! empty( $s['color'] ) ? $s['color'] : '#3f8fd1';
 			$icon_accent = ! empty( $s['accent'] ) ? $s['accent'] : '#101820';
 			?>
       <div>
-        <button type="button" data-cursor="مشاهده" class="species-card group relative flex w-full items-center gap-6 overflow-hidden rounded-2xl border border-foam/10 p-6 text-start transition-colors duration-500 bg-stone-900/40">
+        <<?php echo $card_url ? 'a href="' . esc_url( $card_url ) . '"' : 'button type="button"'; // phpcs:ignore WordPress.Security.EscapeOutput ?> data-cursor="مشاهده" class="species-card group relative flex w-full items-center gap-6 overflow-hidden rounded-2xl border border-foam/10 p-6 text-start transition-colors duration-500 bg-stone-900/40">
           <div class="species-glow absolute inset-0 -z-10 transition-opacity duration-500" style="background:radial-gradient(60% 80% at 15% 50%, var(--color-ocean-700), transparent 70%);opacity:0" aria-hidden="true"></div>
           <div class="species-photo w-24 shrink-0 transition-transform duration-700 ease-out scale-100">
             <?php if ( $photo_url ) : ?>
             <div class="relative aspect-square w-full overflow-hidden rounded-xl">
-              <img alt="<?php echo esc_attr( $s['name'] . ' در آکواریوم غار' ); ?>" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( $photo_url ); ?>" />
+              <img alt="<?php echo esc_attr( $photo_alt ); ?>" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( $photo_url ); ?>" />
             </div>
             <?php else : ?>
             <svg viewBox="0 0 100 48" class="w-full h-auto" aria-hidden="true">
@@ -208,26 +213,32 @@ $geology_facts = ghar_zende_home_get( 'geology_facts' );
           </div>
           <div class="min-w-0">
             <h3 class="font-display text-lg font-medium text-foam"><?php echo esc_html( $s['name'] ); ?></h3>
-            <p class="text-xs italic text-foam-faint"><?php echo esc_html( $s['sci'] ); ?></p>
+            <?php if ( ! empty( $s['sci'] ) ) : ?>
+            <p class="text-xs italic text-foam-faint" dir="ltr" style="text-align:right"><?php echo esc_html( $s['sci'] ); ?></p>
+            <?php endif; ?>
             <p class="species-desc mt-3 max-w-sm text-sm text-foam-dim transition-opacity duration-500 opacity-70"><?php echo esc_html( $s['description'] ); ?></p>
             <dl class="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-xs text-foam-faint">
+              <?php if ( ! empty( $s['habitat'] ) ) : ?>
               <div class="flex gap-1">
                 <dt class="text-turquoise-soft">زیستگاه:</dt>
                 <dd><?php echo esc_html( $s['habitat'] ); ?></dd>
               </div>
+              <?php endif; ?>
+              <?php if ( ! empty( $s['trait'] ) ) : ?>
               <div class="flex gap-1">
                 <dt class="text-turquoise-soft">ویژگی:</dt>
                 <dd><?php echo esc_html( $s['trait'] ); ?></dd>
               </div>
+              <?php endif; ?>
             </dl>
           </div>
-        </button>
+        </<?php echo $card_url ? 'a' : 'button'; ?>>
       </div>
       <?php endforeach; ?>
     </div>
 
     <div class="mt-12 text-center">
-      <a href="<?php echo esc_url( ghar_zende_home_get( 'species_more_href' ) ); ?>" data-magnetic class="neon-cta inline-flex items-center gap-3 rounded-full border border-foam/25 px-7 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft"><?php echo esc_html( ghar_zende_home_get( 'species_more_text' ) ); ?></a>
+      <a href="<?php echo esc_url( ghar_zende_species_more_href() ); ?>" data-magnetic class="neon-cta inline-flex items-center gap-3 rounded-full border border-foam/25 px-7 py-3 text-sm text-foam transition-colors hover:border-turquoise hover:text-turquoise-soft"><?php echo esc_html( ghar_zende_home_get( 'species_more_text' ) ); ?></a>
     </div>
   </div>
 </section>
