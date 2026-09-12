@@ -132,6 +132,7 @@ require_once GHAR_ZENDE_DIR . '/inc/homepage-panel.php';
 require_once GHAR_ZENDE_DIR . '/inc/species-posts.php';
 require_once GHAR_ZENDE_DIR . '/inc/visit-popup.php';
 require_once GHAR_ZENDE_DIR . '/inc/contact-popup.php';
+require_once GHAR_ZENDE_DIR . '/inc/directions-popup.php';
 
 /**
  * Fallback primary menu — used until an admin assigns a real one under
