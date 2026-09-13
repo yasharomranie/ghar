@@ -10,6 +10,7 @@
  * see assets/css/theme.css and ghar_zende_has_hero() in functions.php.
  */
 $ghar_has_hero = ghar_zende_has_hero();
+$ghar_logo_img = ghar_zende_site_logo( 'h-8 md:h-9 w-auto' );
 ?><!DOCTYPE html>
 <html lang="fa" dir="rtl" class="h-full antialiased" <?php language_attributes(); ?>>
 <head>
@@ -28,6 +29,24 @@ $ghar_has_hero = ghar_zende_has_hero();
     }
   })();
 </script>
+<style id="ghar-logo-css">
+/* Frosted chip behind the site logo — keeps a flat raster mark legible in
+   every nav state this header cycles through (transparent, floating over
+   a dark hero photo; blurred .glass-nav on scroll; .theme-nav on pages
+   with no hero) and in both light/dark site themes, without needing
+   separate logo files per state. Mirrors the color-mix opacity pattern
+   already used for --nav-border/--nav-text elsewhere in theme.css. */
+.ghar-logo-chip{display:inline-flex;align-items:center;padding:6px 12px;border-radius:14px;border:1px solid var(--nav-border);background:var(--nav-text)}
+@supports (color:color-mix(in oklab, red, red)) {
+  .ghar-logo-chip{border-color:color-mix(in oklab, var(--nav-border) 15%, transparent);background:color-mix(in oklab, var(--nav-text) 8%, transparent)}
+}
+.ghar-logo-chip img{display:block}
+.ghar-footer-logo{display:inline-flex;align-items:center;padding:6px 14px;border-radius:14px;border:1px solid var(--color-ink);background:var(--color-ink)}
+@supports (color:color-mix(in oklab, red, red)) {
+  .ghar-footer-logo{border-color:color-mix(in oklab, var(--color-ink) 12%, transparent);background:color-mix(in oklab, var(--color-ink) 6%, transparent)}
+}
+.ghar-footer-logo img{display:block}
+</style>
 <?php wp_head(); ?>
 </head>
 <body <?php body_class( 'min-h-full bg-surface text-ink' ); ?>>
@@ -37,7 +56,13 @@ $ghar_has_hero = ghar_zende_has_hero();
 
 <header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-[background,border-color] duration-500 border-b border-transparent bg-transparent<?php echo $ghar_has_hero ? '' : ' theme-nav'; ?>">
   <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
-    <a class="font-display text-lg font-semibold tracking-wide text-[var(--nav-text)]" href="<?php echo esc_url( home_url( '/' ) ); ?>">غار <span class="text-turquoise">زنده</span></a>
+    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+      <?php if ( $ghar_logo_img ) : ?>
+      <span class="ghar-logo-chip"><?php echo $ghar_logo_img; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+      <?php else : ?>
+      <span class="font-display text-lg font-semibold tracking-wide text-[var(--nav-text)]">غار <span class="text-turquoise">زنده</span></span>
+      <?php endif; ?>
+    </a>
 
     <nav class="hidden items-center gap-8 md:flex" aria-label="پیمایش اصلی">
       <?php ghar_zende_primary_nav( 'desktop' ); ?>

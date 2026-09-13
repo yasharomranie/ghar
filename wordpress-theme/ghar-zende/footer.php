@@ -11,7 +11,14 @@
   <div class="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-14 md:px-10">
     <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
       <div class="max-w-sm">
-        <a class="font-display text-lg font-semibold text-ink" href="<?php echo esc_url( home_url( '/' ) ); ?>">غار <span class="text-accent">زنده</span></a>
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="inline-flex items-center" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+          <?php $ghar_footer_logo = ghar_zende_site_logo( 'h-10 w-auto' ); ?>
+          <?php if ( $ghar_footer_logo ) : ?>
+          <span class="ghar-footer-logo"><?php echo $ghar_footer_logo; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+          <?php else : ?>
+          <span class="font-display text-lg font-semibold text-ink">غار <span class="text-accent">زنده</span></span>
+          <?php endif; ?>
+        </a>
         <p class="mt-3 text-sm leading-relaxed text-ink-dim">دنیایی زنده در دل زمین — سفری به قلب یک غار طبیعی با آکواریوم‌های درون‌صخره‌ای.</p>
       </div>
 

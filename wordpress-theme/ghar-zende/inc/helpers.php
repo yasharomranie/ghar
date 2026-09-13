@@ -252,6 +252,32 @@ function ghar_zende_img( $filename ) {
 }
 
 /**
+ * The real "غار آکواریوم" mark from the media library, set as WordPress's
+ * Custom Logo (Appearance → Customize → Site Identity → Logo, theme_mod
+ * `custom_logo` — this theme already declares add_theme_support(
+ * 'custom-logo' ) in functions.php). Returns '' when no logo is set, so
+ * header.php/footer.php can fall back to the plain "غار زنده" wordmark
+ * that was hardcoded before a logo existed.
+ */
+function ghar_zende_site_logo( $img_class = 'h-9 w-auto' ) {
+	$logo_id = get_theme_mod( 'custom_logo' );
+	if ( ! $logo_id ) {
+		return '';
+	}
+	return wp_get_attachment_image(
+		$logo_id,
+		'full',
+		false,
+		array(
+			'class'    => esc_attr( $img_class ),
+			'alt'      => get_bloginfo( 'name' ),
+			'loading'  => 'eager',
+			'decoding' => 'async',
+		)
+	);
+}
+
+/**
  * Prints the drifting dust/bubble particle markup — ported from
  * ParticleField.tsx's deterministic layout formula (left/top from the
  * index, not random) so the static markup matches what that component's
